@@ -70,7 +70,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
         holder.name.setText(nameMeeting);
         holder.meeting_users.setText(nameUsers);
-        holder.image.setBackgroundTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
+        holder.image.setImageTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +88,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, meeting_users;
-        FloatingActionButton image;
+        ImageView image;
         ImageButton mDeleteButton;
 
         ViewHolder(View view) {

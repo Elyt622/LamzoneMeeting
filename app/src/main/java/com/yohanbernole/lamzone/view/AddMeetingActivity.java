@@ -44,10 +44,10 @@ public class AddMeetingActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mMeetingRoomSpinner.setAdapter(adapter);
 
-        Button add_email_user = findViewById(R.id.button_add_user);
+        Button addEmailUser = findViewById(R.id.button_add_user);
         final EditText editText_add_email = findViewById(R.id.edit_text_email_user_meeting);
         final TextView listUsers = findViewById(R.id.text_view_list_users);
-        add_email_user.setOnClickListener(new View.OnClickListener() {
+        addEmailUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String participant = editText_add_email.getText().toString();

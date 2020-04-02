@@ -27,16 +27,16 @@ public abstract class MeetingGenerator {
             );
 
     public static List<MeetingRoom> MEETINGROOMS = Arrays.asList(
-            new MeetingRoom(1, "A1", Color.GRAY),
-            new MeetingRoom(2, "A2", Color.BLUE),
-            new MeetingRoom(3, "A3", Color.YELLOW),
-            new MeetingRoom(4, "E1", Color.CYAN),
-            new MeetingRoom(5, "E2", Color.RED),
-            new MeetingRoom(6, "E3", Color.DKGRAY),
-            new MeetingRoom(7, "M1", Color.GREEN),
-            new MeetingRoom(8, "M2", Color.MAGENTA),
-            new MeetingRoom(9, "M3", Color.BLACK),
-            new MeetingRoom(10, "M4", Color.LTGRAY)
+            new MeetingRoom(1, "A1", 0x662158F6),
+            new MeetingRoom(2, "A2", 0x36000000 + Color.BLUE),
+            new MeetingRoom(3, "A3", 0x36000000 + Color.YELLOW),
+            new MeetingRoom(4, "E1", 0x36000000 + Color.CYAN),
+            new MeetingRoom(5, "E2", 0x36000000 + Color.RED),
+            new MeetingRoom(6, "E3", 0x3600FF00),
+            new MeetingRoom(7, "M1", 0x36000000 + Color.GREEN),
+            new MeetingRoom(8, "M2", 0x36000000 + Color.MAGENTA),
+            new MeetingRoom(9, "M3", 0x36000000 + Color.BLACK),
+            new MeetingRoom(10, "M4", 0x36FF66FF)
     );
 
     public static List<Meeting> MEETINGS = Arrays.asList(
@@ -58,7 +58,7 @@ public abstract class MeetingGenerator {
             new Meeting(16, "Reunion 15", new Date(7357537),MEETINGROOMS.get(3), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))))
     );
 
-    protected MeetingGenerator() throws ParseException, ParseException {
+    protected MeetingGenerator() {
     }
 
     static List<Meeting> generateMeetings() {
