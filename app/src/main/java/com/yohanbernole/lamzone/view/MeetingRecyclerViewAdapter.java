@@ -1,7 +1,11 @@
 package com.yohanbernole.lamzone.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
+import android.media.Image;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
@@ -20,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.RequiresApi;
+import androidx.loader.content.CursorLoader;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -42,9 +49,12 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         mApiService = DI.getMeetingApiService();
         final Meeting meeting = mMeetings.get(position);
+        SimpleDateFormat format = new SimpleDateFormat("HH'h'mm");
+        String date = format.format(meeting.getHours());
         String nameMeeting = meeting.getName()
-                + " - " + DateFormat.getTimeInstance(3, Locale.FRANCE).format(meeting.getHours())
+                + " - " + date
                 + " - " + meeting.getSubject();
+
 
         String nameUsers = meeting.getUsers().get(0).getEmail()
                 + ", "
@@ -60,12 +70,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
         holder.name.setText(nameMeeting);
         holder.meeting_users.setText(nameUsers);
-        holder.image.setBackgroundColor(meeting.getLocation().getColor());
-
+        holder.image.setBackgroundTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMeetings.remove(position);
+                mApiService.removeMeeting(meeting); // or mMeetings.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,getItemCount());
             }
@@ -79,9 +88,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, meeting_users;
-        ImageView image;
+        FloatingActionButton image;
         ImageButton mDeleteButton;
-
 
         ViewHolder(View view) {
             super(view);

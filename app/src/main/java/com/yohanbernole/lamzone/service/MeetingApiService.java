@@ -14,7 +14,7 @@ public interface MeetingApiService {
 
         List<MeetingRoom> getMeetingRooms();
 
-        void removeMeeting(long index);
+        void removeMeeting(Meeting meeting);
 
         Meeting getMeeting(long id);
 }

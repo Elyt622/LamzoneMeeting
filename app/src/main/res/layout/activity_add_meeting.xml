@@ -1,9 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AddMeetingActivity">
+    tools:context=".view.AddMeetingActivity"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/text_view_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="7dp"
+        android:text="Nouvelle réunion"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/text_view_meeting_room"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_title"
+        android:layout_alignStart="@+id/text_view_title"
+        android:layout_marginStart="-84dp"
+        android:layout_marginTop="21dp"
+        android:text="Salle de réunion"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spinner_meeting_room"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/text_view_meeting_room"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/text_view_meeting_room"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/text_view_meeting_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_meeting_room"
+        android:layout_alignStart="@+id/text_view_meeting_room"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="37dp"
+        android:text="Sujet de la réunion"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edit_text_subject_meeting"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_meeting_subject"
+        android:layout_alignStart="@+id/text_view_meeting_subject"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="2dp"
+        android:hint="Sujet de la réunion"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/text_view_date_meeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_text_subject_meeting"
+        android:layout_alignStart="@+id/edit_text_subject_meeting"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="41dp"
+        android:text="Date de la réunion"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edit_text_date_meeting"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_date_meeting"
+        android:layout_alignStart="@+id/text_view_date_meeting"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="0dp"
+        android:hint="Exemple: 18/05/2020"
+        android:inputType="date" />
+
+    <TextView
+        android:id="@+id/text_view_begin_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_text_date_meeting"
+        android:layout_alignStart="@+id/edit_text_date_meeting"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="21dp"
+        android:text="De"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/text_view_final_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/text_view_begin_hours"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="-2dp"
+        android:layout_toEndOf="@+id/text_view_begin_hours"
+        android:text="à"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edit_text_begin_hours"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_begin_hours"
+        android:layout_alignStart="@+id/text_view_begin_hours"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:inputType="time"
+        android:hint="Ex: 16:00"/>
+
+    <EditText
+        android:id="@+id/edit_text_final_hours"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_final_hours"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/edit_text_begin_hours"
+        android:inputType="time"
+        android:hint="Ex: 19:00"/>
+
+    <EditText
+        android:id="@+id/edit_text_email_user_meeting"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_text_date_meeting"
+        android:layout_alignStart="@+id/edit_text_date_meeting"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="119dp"
+        android:hint="Ex: contact@lamzone.com"
+        android:inputType="textEmailAddress" />
+
+    <Button
+        android:id="@+id/button_add_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_text_email_user_meeting"
+        android:layout_alignStart="@+id/edit_text_email_user_meeting"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="8dp"
+        android:text="Ajouter participant" />
+
+    <TextView
+        android:id="@+id/text_view_list_users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button_add_user"
+        android:layout_alignBottom="@+id/button_add_user"
+        android:layout_marginStart="-65dp"
+        android:layout_marginBottom="-19dp" />
+
+    <Button
+        android:id="@+id/button_add_meeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_add_user"
+        android:layout_alignStart="@+id/button_add_user"
+        android:layout_marginStart="-95dp"
+        android:layout_marginTop="21dp"
+        android:text="Ajouter la réunion" />
+
+</RelativeLayout>

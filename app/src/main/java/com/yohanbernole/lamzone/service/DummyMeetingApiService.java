@@ -20,7 +20,7 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     public List<MeetingRoom> getMeetingRooms() { return rooms; }
 
-    public void removeMeeting(long id) { meetings.remove(getMeeting(id)); }
+    public void removeMeeting(Meeting meeting) { meetings.remove(meeting); }
 
     public Meeting getMeeting(long id) {
         for(int i = 0; i < meetings.size(); i++){
