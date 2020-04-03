@@ -2,7 +2,10 @@ package com.yohanbernole.lamzone.view;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,12 +40,11 @@ import java.util.Locale;
 public class AddMeetingActivity extends AppCompatActivity {
 
     MeetingApiService mMeetingApiService;
-    ArrayList<User> listUserParticipant = new ArrayList<>();
     MultiAutoCompleteTextView addUsersWithCompletion;
     MeetingRoom meetingRoomChoose;
-    Meeting meeting;
-    String dateChoose, timeChoose, subjectMeeting;
+    String dateChoose, timeChoose;
     Date date = null;
+    ArrayList<User> listParticipant = new ArrayList<>();
 
 
     @Override
@@ -61,8 +63,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         final EditText subjectMeetingEditText = findViewById(R.id.edit_text_subject_meeting);
         Button addMeetingButton = findViewById(R.id.button_add_meeting);
         final EditText nameMeetingEditText = findViewById(R.id.edit_text_meeting_name);
+        final RecyclerView rv = findViewById(R.id.recycler_view_user_participant);;
+        final TextView needInfoTextView = findViewById(R.id.text_view_need_infos);
 
         timeMeetingTimePicker.setIs24HourView(true);
+        needInfoTextView.setVisibility(View.INVISIBLE);
 
         // *** Configure Date of Meeting *** //
         Calendar calendar = Calendar.getInstance();
@@ -80,9 +85,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 timeChoose = hourOfDay + ":" + minute;
                 try {
                     date = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.FRANCE).parse(dateChoose + " " + timeChoose);
-                    Log.d("Date", String.valueOf(date));
                 } catch (ParseException e) {
-                    Log.d("Date", dateChoose + " " + timeChoose);
                     e.printStackTrace();
                 }
             }
@@ -96,7 +99,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         for(int i = 0; i < mMeetingApiService.getMeetingRooms().size(); i++){
             list.add(mMeetingApiService.getMeetingRooms().get(i).getName());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<> (this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<> (this, R.layout.spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         meetingRoomSpinner.setAdapter(adapter);
         meetingRoomSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
@@ -119,34 +122,45 @@ public class AddMeetingActivity extends AppCompatActivity {
         addUsersWithCompletion.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
 
-
+        // *** Configure Button add user *** //
         addEmailUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitUserToMeeting();
-                Log.d("DEBUG", String.valueOf(submitUserToMeeting().size()));
+                submitUserToMeeting(listParticipant);
+                UserRecyclerViewAdapter adapterRv = new UserRecyclerViewAdapter(listParticipant);
+                rv.setAdapter(adapterRv);
+                rv.setLayoutManager(new LinearLayoutManager(v.getContext()));
+                addUsersWithCompletion.setText("");
             }
         });
 
-
-
+        // *** Configure Button add meeting *** //
         addMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size()+1,nameMeetingEditText.getText().toString(), date, meetingRoomChoose, subjectMeetingEditText.getText().toString(), submitUserToMeeting());
-                finish();
+                if(!(nameMeetingEditText == null) && !(date == null) && !(meetingRoomChoose == null) && !(subjectMeetingEditText == null) && !(listParticipant.size() == 0)) {
+                    Meeting meeting = mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
+                            nameMeetingEditText.getText().toString(),
+                            date,
+                            meetingRoomChoose,
+                            subjectMeetingEditText.getText().toString(),
+                            listParticipant);
+                    finish();
+                }
+                else{
+                    needInfoTextView.setVisibility(View.VISIBLE);
+                }
             }
         });
-
     }
 
-    ArrayList<User> submitUserToMeeting(){
+
+    void submitUserToMeeting(ArrayList<User> users){
         for(String i : mMeetingApiService.getEmails()){
-            if(addUsersWithCompletion.getText().toString().contains(i) && !listUserParticipant.contains(mMeetingApiService.getUser(i))){
-                    listUserParticipant.add(mMeetingApiService.getUser(i));
+            if(addUsersWithCompletion.getText().toString().contains(i) && !users.contains(mMeetingApiService.getUser(i))){
+                    users.add(mMeetingApiService.getUser(i));
             }
         }
-        return listUserParticipant;
     }
 
     @Override
@@ -154,9 +168,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 finish();
+                break;
             case R.id.add_new_user:
                 Intent intent = new Intent(this, AddUserActivity.class);
                 startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

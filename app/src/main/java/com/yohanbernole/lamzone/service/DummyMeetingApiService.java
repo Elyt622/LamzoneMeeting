@@ -47,7 +47,7 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     public User getUser(String email){
         for(int i = 0; i < users.size(); i++){
-            if(users.get(i).getEmail() == email){
+            if(users.get(i).getEmail().equals(email)){
                 return users.get(i);
             }
         }
@@ -58,5 +58,10 @@ public class DummyMeetingApiService implements MeetingApiService {
         Meeting meeting = new Meeting(id, name, hours, room, subject, users);
         meetings.add(meeting);
         return meeting;
+    }
+
+    public void createUser(long id, String name, String email){
+        User user = new User(id, name, email);
+        users.add(user);
     }
 }
