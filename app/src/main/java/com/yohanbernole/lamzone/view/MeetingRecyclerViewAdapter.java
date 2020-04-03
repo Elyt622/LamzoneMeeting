@@ -1,58 +1,57 @@
 package com.yohanbernole.lamzone.view;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.icu.text.DateFormat;
-import android.icu.text.SimpleDateFormat;
-import android.media.Image;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.service.MeetingApiService;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.text.DateFormat;
 import java.util.Locale;
 
-import androidx.annotation.RequiresApi;
-import androidx.loader.content.CursorLoader;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder>{
     private final List<Meeting> mMeetings;
-    MeetingApiService mApiService;
+    private MeetingApiService mApiService;
+
     MeetingRecyclerViewAdapter(List<Meeting> items) {
         mMeetings = items;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_meeting, parent, false);
         return new ViewHolder(view);
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         mApiService = DI.getMeetingApiService();
         final Meeting meeting = mMeetings.get(position);
-        SimpleDateFormat format = new SimpleDateFormat("HH'h'mm");
-        String date = format.format(meeting.getHours());
+
+        Date date = meeting.getHours();
+        DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.FRANCE);
+        String strDate = dateFormat.format(date);
+        strDate = strDate.replace(":","h");
+        Log.d("date",strDate);
         String nameMeeting = meeting.getName()
-                + " - " + date
+                + " - " + strDate
                 + " - " + meeting.getSubject();
 
 

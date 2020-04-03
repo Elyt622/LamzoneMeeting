@@ -5,8 +5,6 @@ import android.graphics.Color;
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.model.MeetingRoom;
 import com.yohanbernole.lamzone.model.User;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -68,5 +66,7 @@ public abstract class MeetingGenerator {
     static List<MeetingRoom> generateMeetingRooms() {
         return new ArrayList<>(MEETINGROOMS);
     }
+
+    static List<User> generateUsers() { return new ArrayList<>(USERS); }
 
 }
