@@ -10,18 +10,19 @@ public class Meeting {
     private long id;
     private String name;
     private Date hours;
-    private Duration duration;
+    private int duration;
     private MeetingRoom room;
     private String subject;
     private ArrayList<User> users;
 
-    public Meeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users) {
+    public Meeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users, int duration) {
         this.id = id;
         this.name = name;
         this.hours = hours;
         this.room = room;
         this.subject = subject;
         this.users = users;
+        this.duration = duration;
     }
 
     public long getId() {
@@ -63,6 +64,10 @@ public class Meeting {
     public void setHours(Date hours) { this.hours = hours; }
 
     public Date getHours() { return hours; }
+
+    public void setDuration(int duration) { this.duration = duration; }
+
+    public int getDuration() { return duration; }
 
     @Override
     public boolean equals(Object o) {

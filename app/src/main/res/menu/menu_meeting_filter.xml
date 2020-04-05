@@ -3,7 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/filter_meeting"
-        android:icon="@drawable/ic_filter_list_24"
-        app:showAsAction="always"
-        android:title="Add new user" />
+        android:title="Filtrer"
+        app:showAsAction="always|withText">
+        <menu>
+            <item
+                android:id="@+id/filter_by_room"
+                android:title="Par Salle" />
+            <item
+                android:id="@+id/filter_by_date"
+                android:title="Par Date" />
+        </menu>
+    </item>
 </menu>

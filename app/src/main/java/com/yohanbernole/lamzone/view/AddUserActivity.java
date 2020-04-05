@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
@@ -36,14 +37,22 @@ public class AddUserActivity extends AppCompatActivity {
         buttonAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mApiService.getEmails().contains(editTextEmailUser.getText().toString())) {
+                if(!mApiService.getEmails().contains(editTextEmailUser.getText().toString()) && editTextEmailUser.getText().toString().contains("@")) {
                     mApiService.createUser(mApiService.getUsers().size()+1,
                             editTextUsername.getText().toString(),
                             editTextEmailUser.getText().toString());
+                    Toast toast = Toast.makeText(v.getContext(), "Utilisateur ajouté",Toast.LENGTH_LONG);
+                    toast.show();
                     finish();
                 }
                 else{
-                    textViewOtherMail.setVisibility(View.VISIBLE);
+                    if(mApiService.getEmails().contains(editTextEmailUser.getText().toString())) {
+                        textViewOtherMail.setVisibility(View.VISIBLE);
+                    }
+                    else if(!editTextEmailUser.getText().toString().contains("@")){
+                        textViewOtherMail.setText(R.string.mail_invalid);
+                        textViewOtherMail.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });

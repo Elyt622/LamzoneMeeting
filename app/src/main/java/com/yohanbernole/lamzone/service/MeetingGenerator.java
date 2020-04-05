@@ -38,22 +38,22 @@ public abstract class MeetingGenerator {
     );
 
     public static List<Meeting> MEETINGS = Arrays.asList(
-            new Meeting(1, "Reunion hebdo", new Date(20002211), MEETINGROOMS.get(1), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(3)))),
-            new Meeting(2, "Reunion 1", new Date(541651), MEETINGROOMS.get(2), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(3, "Reunion 2", new Date(54654865) ,MEETINGROOMS.get(4), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(4, "Reunion 3", new Date(282582) ,MEETINGROOMS.get(9), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(3), USERS.get(6)))),
-            new Meeting(5, "Reunion 4", new Date(585285) ,MEETINGROOMS.get(1), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(6, "Reunion 5", new Date(58525852) ,MEETINGROOMS.get(5), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(5), USERS.get(3)))),
-            new Meeting(7, "Reunion 6", new Date(58525),MEETINGROOMS.get(8), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(8, "Reunion 7", new Date(88541),MEETINGROOMS.get(7), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(9, "Reunion 8", new Date(258575),MEETINGROOMS.get(6), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(10, "Reunion 9", new Date(585744),MEETINGROOMS.get(2), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(11, "Reunion 10", new Date(2682822),MEETINGROOMS.get(3), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(12, "Reunion 11", new Date(396393652),MEETINGROOMS.get(9), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(13, "Reunion 12", new Date(96325),MEETINGROOMS.get(6), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(14, "Reunion 13", new Date(432574),MEETINGROOMS.get(8), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(15, "Reunion 14", new Date(837745),MEETINGROOMS.get(4), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2)))),
-            new Meeting(16, "Reunion 15", new Date(7357537),MEETINGROOMS.get(3), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))))
+            new Meeting(1, "Reunion hebdo", new Date(20002211), MEETINGROOMS.get(1), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(3))), 120),
+            new Meeting(2, "Reunion 1", new Date(541651), MEETINGROOMS.get(2), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(3, "Reunion 2", new Date(54654865) ,MEETINGROOMS.get(4), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(4, "Reunion 3", new Date(282582) ,MEETINGROOMS.get(9), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(3), USERS.get(6))), 120),
+            new Meeting(5, "Reunion 4", new Date(585285) ,MEETINGROOMS.get(1), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(6, "Reunion 5", new Date(58525852) ,MEETINGROOMS.get(5), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(5), USERS.get(3))), 120),
+            new Meeting(7, "Reunion 6", new Date(58525),MEETINGROOMS.get(8), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(8, "Reunion 7", new Date(88541),MEETINGROOMS.get(7), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(9, "Reunion 8", new Date(258575),MEETINGROOMS.get(6), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(10, "Reunion 9", new Date(585744),MEETINGROOMS.get(2), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(11, "Reunion 10", new Date(2682822),MEETINGROOMS.get(3), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(12, "Reunion 11", new Date(396393652),MEETINGROOMS.get(9), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(13, "Reunion 12", new Date(96325),MEETINGROOMS.get(6), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(14, "Reunion 13", new Date(432574),MEETINGROOMS.get(8), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(15, "Reunion 14", new Date(837745),MEETINGROOMS.get(4), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
+            new Meeting(16, "Reunion 15", new Date(7357537),MEETINGROOMS.get(3), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120)
     );
 
     protected MeetingGenerator() {

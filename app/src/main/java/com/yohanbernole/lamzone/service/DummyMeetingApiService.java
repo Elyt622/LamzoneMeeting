@@ -54,8 +54,8 @@ public class DummyMeetingApiService implements MeetingApiService {
         return null;
     }
 
-    public Meeting createMeeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users){
-        Meeting meeting = new Meeting(id, name, hours, room, subject, users);
+    public Meeting createMeeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users, int duration){
+        Meeting meeting = new Meeting(id, name, hours, room, subject, users, duration);
         meetings.add(meeting);
         return meeting;
     }

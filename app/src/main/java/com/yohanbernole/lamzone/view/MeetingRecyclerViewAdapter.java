@@ -1,27 +1,28 @@
 package com.yohanbernole.lamzone.view;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.service.MeetingApiService;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.text.DateFormat;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -40,8 +41,9 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                 .inflate(R.layout.fragment_meeting, parent, false);
         return new ViewHolder(view);
     }
+
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         mApiService = DI.getMeetingApiService();
         final Meeting meeting = mMeetings.get(position);
 
@@ -69,6 +71,16 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.name.setText(nameMeeting);
         holder.meeting_users.setText(nameUsers);
         holder.image.setImageTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
+
+        holder.listItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext() , DetailsMeetingActivity.class);
+                intent.putExtra("ID", meeting.getId());
+                ActivityCompat.startActivity(v.getContext(), intent, null);
+            }
+        });
+
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,10 +96,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         return mMeetings.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, meeting_users;
         ImageView image;
         ImageButton mDeleteButton;
+        LinearLayout listItem;
 
         ViewHolder(View view) {
             super(view);
@@ -95,6 +108,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             image = view.findViewById(R.id.item_list_color);
             mDeleteButton = view.findViewById(R.id.item_list_delete_button);
             meeting_users = view.findViewById(R.id.item_list_user);
+            listItem = view.findViewById(R.id.item_meeting);
         }
     }
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Lamzone</string>
+    <string name="mail_invalid">Veuillez saisir une addresse mail valide !</string>
+    <string name="need_infos">Veuillez saisir toutes les informations !</string>
 </resources>

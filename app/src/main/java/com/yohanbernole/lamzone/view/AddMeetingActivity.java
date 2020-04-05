@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +19,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
@@ -65,6 +64,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         final EditText nameMeetingEditText = findViewById(R.id.edit_text_meeting_name);
         final RecyclerView rv = findViewById(R.id.recycler_view_user_participant);;
         final TextView needInfoTextView = findViewById(R.id.text_view_need_infos);
+        final EditText editTextMeetingDuration = findViewById(R.id.edit_text_meeting_duration);
 
         timeMeetingTimePicker.setIs24HourView(true);
         needInfoTextView.setVisibility(View.INVISIBLE);
@@ -138,13 +138,17 @@ public class AddMeetingActivity extends AppCompatActivity {
         addMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!(nameMeetingEditText == null) && !(date == null) && !(meetingRoomChoose == null) && !(subjectMeetingEditText == null) && !(listParticipant.size() == 0)) {
+                if(!nameMeetingEditText.getText().toString().isEmpty() && date != null && meetingRoomChoose != null && !subjectMeetingEditText.getText().toString().isEmpty() && listParticipant.size() != 0 && !editTextMeetingDuration.getText().toString().isEmpty()) {
+
                     Meeting meeting = mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
                             nameMeetingEditText.getText().toString(),
                             date,
                             meetingRoomChoose,
                             subjectMeetingEditText.getText().toString(),
-                            listParticipant);
+                            listParticipant,
+                            Integer.parseInt(editTextMeetingDuration.getText().toString()));
+                    Toast toast = Toast.makeText(v.getContext(), "Réunion ajoutée",Toast.LENGTH_LONG);
+                    toast.show();
                     finish();
                 }
                 else{
