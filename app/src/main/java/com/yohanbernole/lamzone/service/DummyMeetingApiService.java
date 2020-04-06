@@ -1,12 +1,16 @@
 package com.yohanbernole.lamzone.service;
 
+import android.util.Log;
+
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.model.MeetingRoom;
 import com.yohanbernole.lamzone.model.User;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Dummy mock for the Api
@@ -64,4 +68,30 @@ public class DummyMeetingApiService implements MeetingApiService {
         User user = new User(id, name, email);
         users.add(user);
     }
+
+    public List<Meeting> filterMeetingByRoomId(List<Integer> ids){
+        ArrayList<Meeting> meetingWithFilterByRooms = new ArrayList<>();
+        for(int i = 0; i < meetings.size(); i++) {
+            for (int id : ids) {
+                if(meetings.get(i).getLocation().getId() == id + 1)
+                    meetingWithFilterByRooms.add(meetings.get(i));
+            }
+        }
+        return meetingWithFilterByRooms;
+    }
+
+    public ArrayList<Meeting> filterMeetingByDate(int year, int month, int day){
+        int year2, month2, day2;
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        ArrayList<Meeting> meetingWithFilterByDate = new ArrayList<>();
+        for(int i = 0; i < meetings.size(); i++){
+            cal.setTime(meetings.get(i).getHours());
+            year2 = cal.get(Calendar.YEAR); month2 = cal.get(Calendar.MONTH); day2 = cal.get(Calendar.DAY_OF_MONTH);
+            if(year == year2 && month == month2 && day == day2){
+                meetingWithFilterByDate.add(meetings.get(i));
+            }
+        }
+        return meetingWithFilterByDate;
+    }
+
 }

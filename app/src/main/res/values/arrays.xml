@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rooms">
+        <item name="Room A1">Salle A1</item>
+        <item name="Room A2">Salle A2</item>
+        <item name="Room A3">Salle A3</item>
+        <item name="Room E1">Salle E1</item>
+        <item name="Room E2">Salle E2</item>
+        <item name="Room E3">Salle E3</item>
+        <item name="Room M1">Salle M1</item>
+        <item name="Room M2">Salle M2</item>
+        <item name="Room M3">Salle M3</item>
+        <item name="Room M4">Salle M4</item>
+    </string-array>
+</resources>

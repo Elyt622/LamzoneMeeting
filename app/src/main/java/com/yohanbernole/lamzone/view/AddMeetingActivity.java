@@ -92,8 +92,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
 
 
-
-
         // *** Configure Spinner with Meeting rooms name *** //
         List<String> list = new ArrayList<>();
         for(int i = 0; i < mMeetingApiService.getMeetingRooms().size(); i++){

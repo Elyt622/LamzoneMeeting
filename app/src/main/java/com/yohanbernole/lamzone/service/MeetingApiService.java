@@ -31,4 +31,8 @@ public interface MeetingApiService {
         Meeting createMeeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users, int duration);
 
         void createUser(long id, String name, String email);
+
+        List<Meeting> filterMeetingByRoomId(List<Integer> ids);
+
+        ArrayList<Meeting> filterMeetingByDate(int year, int month, int day);
 }
