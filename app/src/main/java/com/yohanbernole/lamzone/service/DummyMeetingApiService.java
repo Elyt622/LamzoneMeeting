@@ -41,7 +41,7 @@ public class DummyMeetingApiService implements MeetingApiService {
         return null;
     }
 
-    public List<String> getEmails() {
+    public List<String> getAllEmails() {
         ArrayList<String> emails = new ArrayList<>();
         for(int i = 0; i < users.size(); i++){
                 emails.add(users.get(i).getEmail());

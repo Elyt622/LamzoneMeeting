@@ -14,7 +14,7 @@
                 android:title="Par Date" />
             <item
                 android:id="@+id/reinitialize_filter"
-                android:title="Réinitialiserhè"/>
+                android:title="Réinitialiser"/>
         </menu>
     </item>
 </menu>

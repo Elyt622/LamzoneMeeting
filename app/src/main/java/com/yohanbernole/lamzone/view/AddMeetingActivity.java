@@ -114,7 +114,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
         // *** Configure MultiCompletion Edit Text *** //
-        ArrayAdapter adapterUsers = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mMeetingApiService.getEmails());
+        ArrayAdapter adapterUsers = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mMeetingApiService.getAllEmails());
         addUsersWithCompletion.setAdapter(adapterUsers);
         addUsersWithCompletion.setThreshold(1);
         addUsersWithCompletion.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
@@ -158,7 +158,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
     void submitUserToMeeting(ArrayList<User> users){
-        for(String i : mMeetingApiService.getEmails()){
+        for(String i : mMeetingApiService.getAllEmails()){
             if(addUsersWithCompletion.getText().toString().contains(i) && !users.contains(mMeetingApiService.getUser(i))){
                     users.add(mMeetingApiService.getUser(i));
             }

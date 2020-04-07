@@ -37,7 +37,7 @@ public class AddUserActivity extends AppCompatActivity {
         buttonAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mApiService.getEmails().contains(editTextEmailUser.getText().toString()) && editTextEmailUser.getText().toString().contains("@")) {
+                if(!mApiService.getAllEmails().contains(editTextEmailUser.getText().toString()) && editTextEmailUser.getText().toString().contains("@")) {
                     mApiService.createUser(mApiService.getUsers().size()+1,
                             editTextUsername.getText().toString(),
                             editTextEmailUser.getText().toString());
@@ -46,7 +46,7 @@ public class AddUserActivity extends AppCompatActivity {
                     finish();
                 }
                 else{
-                    if(mApiService.getEmails().contains(editTextEmailUser.getText().toString())) {
+                    if(mApiService.getAllEmails().contains(editTextEmailUser.getText().toString())) {
                         textViewOtherMail.setVisibility(View.VISIBLE);
                     }
                     else if(!editTextEmailUser.getText().toString().contains("@")){

@@ -26,7 +26,7 @@ public interface MeetingApiService {
 
         User getUser(String email);
 
-        List<String> getEmails();
+        List<String> getAllEmails();
 
         Meeting createMeeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users, int duration);
 
