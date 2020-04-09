@@ -17,7 +17,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -42,9 +41,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     MultiAutoCompleteTextView addUsersWithCompletion;
     MeetingRoom meetingRoomChoose;
     String dateChoose, timeChoose;
-    Date date = null;
+    Date date;
     ArrayList<User> listParticipant = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +60,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         final EditText subjectMeetingEditText = findViewById(R.id.edit_text_subject_meeting);
         Button addMeetingButton = findViewById(R.id.button_add_meeting);
         final EditText nameMeetingEditText = findViewById(R.id.edit_text_meeting_name);
-        final RecyclerView rv = findViewById(R.id.recycler_view_user_participant);;
-        final TextView needInfoTextView = findViewById(R.id.text_view_need_infos);
+        final RecyclerView rv = findViewById(R.id.recycler_view_user_participant);
         final EditText editTextMeetingDuration = findViewById(R.id.edit_text_meeting_duration);
 
-        timeMeetingTimePicker.setIs24HourView(true);
-        needInfoTextView.setVisibility(View.INVISIBLE);
-
         // *** Configure Date of Meeting *** //
+        timeMeetingTimePicker.setIs24HourView(true);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         dateMeetingDatePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
@@ -91,7 +86,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
-
         // *** Configure Spinner with Meeting rooms name *** //
         List<String> list = new ArrayList<>();
         for(int i = 0; i < mMeetingApiService.getMeetingRooms().size(); i++){
@@ -112,13 +106,11 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
-
         // *** Configure MultiCompletion Edit Text *** //
         ArrayAdapter adapterUsers = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mMeetingApiService.getAllEmails());
         addUsersWithCompletion.setAdapter(adapterUsers);
         addUsersWithCompletion.setThreshold(1);
         addUsersWithCompletion.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
 
         // *** Configure Button add user *** //
         addEmailUserButton.setOnClickListener(new View.OnClickListener() {
@@ -136,28 +128,56 @@ public class AddMeetingActivity extends AppCompatActivity {
         addMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!nameMeetingEditText.getText().toString().isEmpty() && date != null && meetingRoomChoose != null && !subjectMeetingEditText.getText().toString().isEmpty() && listParticipant.size() != 0 && !editTextMeetingDuration.getText().toString().isEmpty()) {
-
-                    Meeting meeting = mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
-                            nameMeetingEditText.getText().toString(),
-                            date,
-                            meetingRoomChoose,
-                            subjectMeetingEditText.getText().toString(),
-                            listParticipant,
-                            Integer.parseInt(editTextMeetingDuration.getText().toString()));
-                    Toast toast = Toast.makeText(v.getContext(), "Réunion ajoutée",Toast.LENGTH_LONG);
-                    toast.show();
-                    finish();
+                if(!nameMeetingEditText.getText().toString().isEmpty() && date != null && meetingRoomChoose != null &&
+                        !subjectMeetingEditText.getText().toString().isEmpty() && listParticipant.size() != 0 && !editTextMeetingDuration.getText().toString().isEmpty()) {
+                    if(!checkDateIsValid(date, Integer.parseInt(editTextMeetingDuration.getText().toString()), meetingRoomChoose.getId()-1)){
+                        Toast toast = Toast.makeText(v.getContext(), "La salle est indisponible pour ces horaires", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                    else {
+                        mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
+                                nameMeetingEditText.getText().toString(),
+                                date,
+                                meetingRoomChoose,
+                                subjectMeetingEditText.getText().toString(),
+                                listParticipant,
+                                Integer.parseInt(editTextMeetingDuration.getText().toString()));
+                        Toast toast = Toast.makeText(v.getContext(), "Réunion ajoutée", Toast.LENGTH_LONG);
+                        toast.show();
+                        finish();
+                    }
                 }
                 else{
-                    needInfoTextView.setVisibility(View.VISIBLE);
+                    Toast toast = Toast.makeText(v.getContext(), "Veuillez saisir toutes les informations.", Toast.LENGTH_LONG);
+                    toast.show();
                 }
             }
         });
     }
 
+    private Date getEndDateMeeting(Date date, int duration){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTime(date);
+        calendar.add(Calendar.MINUTE, duration);
+        return calendar.getTime();
+    }
 
-    void submitUserToMeeting(ArrayList<User> users){
+    private Boolean checkDateIsValid(Date date, int duration, long idRoom){
+        Date endDate = getEndDateMeeting(date, duration);
+        List<Meeting> meetings = mMeetingApiService.filterMeetingByRoomId(idRoom);
+        for(Meeting i: meetings) {
+            if((date.after(i.getHours()) && date.before(getEndDateMeeting(i.getHours(), i.getDuration()))) ||
+                    (endDate.after(i.getHours()) &&  endDate.before(getEndDateMeeting(i.getHours(), i.getDuration()))) ||
+                    (i.getHours().after(date) && i.getHours().before(endDate)) ||
+                    (getEndDateMeeting(i.getHours(), i.getDuration()).after(date) && getEndDateMeeting(i.getHours(), i.getDuration()).before(endDate))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void submitUserToMeeting(ArrayList<User> users){
         for(String i : mMeetingApiService.getAllEmails()){
             if(addUsersWithCompletion.getText().toString().contains(i) && !users.contains(mMeetingApiService.getUser(i))){
                     users.add(mMeetingApiService.getUser(i));

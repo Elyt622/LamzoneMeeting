@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class MeetingGenerator {
 
-    public static List<User> USERS = Arrays.asList(
+    private static List<User> USERS = Arrays.asList(
             new User(1, "Yohan", "yohan.bernole@gmail.com"),
             new User(2, "Joseph", "joseph.dupond@gmail.com"),
             new User(3, "Nathan", "nathan.truc@gmail.com"),
@@ -24,7 +24,7 @@ public abstract class MeetingGenerator {
             new User(9, "Franck", "franck.email@gmail.com")
             );
 
-    public static List<MeetingRoom> MEETINGROOMS = Arrays.asList(
+    private static List<MeetingRoom> MEETINGROOMS = Arrays.asList(
             new MeetingRoom(1, "A1", 0x662158F6),
             new MeetingRoom(2, "A2", 0x36000000 + Color.BLUE),
             new MeetingRoom(3, "A3", 0x36000000 + Color.YELLOW),
@@ -37,7 +37,7 @@ public abstract class MeetingGenerator {
             new MeetingRoom(10, "M4", 0x36FF66FF)
     );
 
-    public static List<Meeting> MEETINGS = Arrays.asList(
+    private static List<Meeting> MEETINGS = Arrays.asList(
             new Meeting(1, "Reunion hebdo", new Date(20002211), MEETINGROOMS.get(1), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(3))), 120),
             new Meeting(2, "Reunion 1", new Date(541651), MEETINGROOMS.get(2), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),
             new Meeting(3, "Reunion 2", new Date(54654865) ,MEETINGROOMS.get(4), "Bilan de l'année", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))), 120),

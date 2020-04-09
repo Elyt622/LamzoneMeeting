@@ -1,7 +1,5 @@
 package com.yohanbernole.lamzone.model;
 
-import android.graphics.Color;
-
 import java.util.Objects;
 
 public class MeetingRoom {

@@ -97,7 +97,7 @@ public class MeetingActivity extends AppCompatActivity implements DatePickerDial
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         meetings = mApiService.filterMeetingByDate(year, month, dayOfMonth);
-        initFilter(1);
         filterActive = 1;
+        initFilter(filterActive);
     }
 }

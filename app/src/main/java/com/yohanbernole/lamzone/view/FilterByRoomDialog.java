@@ -2,7 +2,6 @@ package com.yohanbernole.lamzone.view;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.yohanbernole.lamzone.R;
@@ -27,7 +26,7 @@ public class FilterByRoomDialog extends DialogFragment {
         selectedItems.clear();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-        builder.setTitle("Filtrer par salle").setView(R.layout.dialog_filter_by_room).setMultiChoiceItems(R.array.rooms, null, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setTitle("Filtrer par salle").setMultiChoiceItems(R.array.rooms, null, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if(isChecked){

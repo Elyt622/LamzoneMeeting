@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yohanbernole.lamzone.R;
@@ -30,14 +29,12 @@ public class AddUserActivity extends AppCompatActivity {
         final EditText editTextUsername = findViewById(R.id.edit_text_username);
         final EditText editTextEmailUser = findViewById(R.id.edit_text_user_email);
         Button buttonAddUser = findViewById(R.id.button_submit_new_user);
-        final TextView textViewOtherMail = findViewById(R.id.text_view_need_other_email);
-
-        textViewOtherMail.setVisibility(View.INVISIBLE);
 
         buttonAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mApiService.getAllEmails().contains(editTextEmailUser.getText().toString()) && editTextEmailUser.getText().toString().contains("@")) {
+                if(!mApiService.getAllEmails().contains(editTextEmailUser.getText().toString()) && editTextEmailUser.getText().toString().contains("@") &&
+                        editTextEmailUser.getText().toString().contains(".") && !editTextUsername.getText().toString().isEmpty()) {
                     mApiService.createUser(mApiService.getUsers().size()+1,
                             editTextUsername.getText().toString(),
                             editTextEmailUser.getText().toString());
@@ -47,11 +44,16 @@ public class AddUserActivity extends AppCompatActivity {
                 }
                 else{
                     if(mApiService.getAllEmails().contains(editTextEmailUser.getText().toString())) {
-                        textViewOtherMail.setVisibility(View.VISIBLE);
+                        Toast toast = Toast.makeText(v.getContext(), "L'addresse mail existe déjà.",Toast.LENGTH_LONG);
+                        toast.show();
                     }
-                    else if(!editTextEmailUser.getText().toString().contains("@")){
-                        textViewOtherMail.setText(R.string.mail_invalid);
-                        textViewOtherMail.setVisibility(View.VISIBLE);
+                    else if(editTextEmailUser.getText().toString().isEmpty() || editTextUsername.getText().toString().isEmpty()){
+                        Toast toast = Toast.makeText(v.getContext(), "Veuillez saisir toutes les informations.",Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                    else if(!editTextEmailUser.getText().toString().contains("@") || !editTextEmailUser.getText().toString().contains(".")) {
+                        Toast toast = Toast.makeText(v.getContext(), "Veuillez saisir une adresse mail valide.",Toast.LENGTH_LONG);
+                        toast.show();
                     }
                 }
             }

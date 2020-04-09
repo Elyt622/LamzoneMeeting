@@ -2,7 +2,7 @@ package com.yohanbernole.lamzone.view;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.util.Log;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder>{
     private final List<Meeting> mMeetings;
     private MeetingApiService mApiService;
-
     MeetingRecyclerViewAdapter(List<Meeting> items) {
         mMeetings = items;
     }
@@ -51,14 +50,17 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.FRANCE);
         String strDate = dateFormat.format(date);
         strDate = strDate.replace(":","h");
-        Log.d("date",strDate);
+
         String nameMeeting = meeting.getName()
                 + " - " + strDate
                 + " - " + meeting.getSubject();
 
-
-        String nameUsers = meeting.getUsers().get(0).getEmail();
-
+        String nameUsers = null;
+        if(meeting.getUsers().size() >= 2){
+            nameUsers = meeting.getUsers().get(0).getEmail() + ", " + meeting.getUsers().get(1).getEmail();
+        }else{
+            nameUsers = meeting.getUsers().get(0).getEmail();
+        }
 
         if(nameUsers.length() > 36) {
             nameUsers = nameUsers.substring(0, 36) + "...";
@@ -71,15 +73,25 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.name.setText(nameMeeting);
         holder.meeting_users.setText(nameUsers);
         holder.image.setImageTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
+        if(holder.orientation == 0)
+        {
+            holder.listItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), DetailsMeetingActivity.class);
+                    intent.putExtra("ID", meeting.getId());
+                    ActivityCompat.startActivity(v.getContext(), intent, null);
+                }
+            });
+        }
+        else if(holder.orientation == 1){
+            holder.listItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        holder.listItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext() , DetailsMeetingActivity.class);
-                intent.putExtra("ID", meeting.getId());
-                ActivityCompat.startActivity(v.getContext(), intent, null);
-            }
-        });
+                }
+            });
+        }
 
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,9 +113,15 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         ImageView image;
         ImageButton mDeleteButton;
         LinearLayout listItem;
-
+        int orientation;
         ViewHolder(View view) {
             super(view);
+            if(view.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                orientation = 0;
+            }
+            else if (view.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                orientation = 1;
+            }
             name = view.findViewById(R.id.item_list_name);
             image = view.findViewById(R.id.item_list_color);
             mDeleteButton = view.findViewById(R.id.item_list_delete_button);

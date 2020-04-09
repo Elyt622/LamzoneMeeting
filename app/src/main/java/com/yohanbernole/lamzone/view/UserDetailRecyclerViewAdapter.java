@@ -3,8 +3,6 @@ package com.yohanbernole.lamzone.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.model.User;
@@ -32,7 +30,7 @@ public class UserDetailRecyclerViewAdapter  extends RecyclerView.Adapter<UserRec
 
     @Override
     public void onBindViewHolder(final UserRecyclerViewAdapter.ViewHolder holder, final int position) {
-        final User user = mUsers.get(position);
+        User user = mUsers.get(position);
         holder.textViewUser.setText(user.getEmail());
         holder.imageButtonRemove.setVisibility(View.INVISIBLE);
     }
@@ -42,13 +40,4 @@ public class UserDetailRecyclerViewAdapter  extends RecyclerView.Adapter<UserRec
         return mUsers.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewUser;
-        ImageButton imageButtonRemove;
-        ViewHolder(View view) {
-            super(view);
-            textViewUser = view.findViewById(R.id.text_view_email_fragment_user);
-            imageButtonRemove = view.findViewById(R.id.image_button_remove_fragment_user);
-        }
-    }
 }

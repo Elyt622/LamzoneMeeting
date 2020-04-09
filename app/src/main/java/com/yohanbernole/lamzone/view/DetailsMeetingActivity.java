@@ -1,11 +1,9 @@
 package com.yohanbernole.lamzone.view;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,25 +13,22 @@ import android.widget.TextView;
 import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.model.Meeting;
-import com.yohanbernole.lamzone.model.User;
 import com.yohanbernole.lamzone.service.MeetingApiService;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class DetailsMeetingActivity extends AppCompatActivity {
-    ArrayList<String> emails = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_meeting);
         MeetingApiService apiService = DI.getMeetingApiService();
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         // *** Bind View *** //
         ImageView colorMeeting = findViewById(R.id.details_meeting_color);
@@ -46,9 +41,6 @@ public class DetailsMeetingActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-
-
-
 
         // *** Bind datas to views *** //
         long id = getIntent().getLongExtra("ID", -1);
@@ -65,7 +57,7 @@ public class DetailsMeetingActivity extends AppCompatActivity {
         colorMeeting.setImageTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
         textViewRoom.setText("Salle " + meeting.getLocation().getName());
         textViewSubject.setText(meeting.getSubject());
-        textViewDuration.setText("Durée " + String .valueOf(meeting.getDuration()) + " minutes");
+        textViewDuration.setText("Durée " + meeting.getDuration() + " minutes");
 
     }
 

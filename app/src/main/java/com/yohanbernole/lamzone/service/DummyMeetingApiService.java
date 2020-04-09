@@ -1,7 +1,5 @@
 package com.yohanbernole.lamzone.service;
 
-import android.util.Log;
-
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.model.MeetingRoom;
 import com.yohanbernole.lamzone.model.User;
@@ -58,10 +56,9 @@ public class DummyMeetingApiService implements MeetingApiService {
         return null;
     }
 
-    public Meeting createMeeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users, int duration){
+    public void createMeeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users, int duration){
         Meeting meeting = new Meeting(id, name, hours, room, subject, users, duration);
         meetings.add(meeting);
-        return meeting;
     }
 
     public void createUser(long id, String name, String email){
@@ -77,6 +74,15 @@ public class DummyMeetingApiService implements MeetingApiService {
                     meetingWithFilterByRooms.add(meetings.get(i));
             }
         }
+        return meetingWithFilterByRooms;
+    }
+
+    public List<Meeting> filterMeetingByRoomId(long id){
+        ArrayList<Meeting> meetingWithFilterByRooms = new ArrayList<>();
+        for(int i = 0; i < meetings.size(); i++) {
+                if(meetings.get(i).getLocation().getId() == id + 1)
+                    meetingWithFilterByRooms.add(meetings.get(i));
+            }
         return meetingWithFilterByRooms;
     }
 

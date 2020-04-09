@@ -7,6 +7,7 @@
     tools:context=".view.AddMeetingActivity"
     android:orientation="vertical"
     android:layout_gravity="center">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,18 +90,25 @@
             android:text="Date de la réunion"
             android:textSize="24sp"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"/>
+            android:textStyle="bold" />
 
-        <DatePicker
-            android:id="@+id/date_picker_add_date"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <TimePicker
-            android:id="@+id/time_picker_add_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <DatePicker
+                android:id="@+id/date_picker_add_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TimePicker
+                android:id="@+id/time_picker_add_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/text_view_duration_meeting"
@@ -115,13 +123,13 @@
             android:layout_marginBottom="10dp"/>
 
         <EditText
-        android:id="@+id/edit_text_meeting_duration"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="Durée (en minutes)"
-        android:gravity="center"
-        android:inputType="number"
-        android:layout_marginBottom="10dp"/>
+            android:id="@+id/edit_text_meeting_duration"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Durée (en minutes)"
+            android:gravity="center"
+            android:inputType="number"
+            android:layout_marginBottom="10dp"/>
 
         <TextView
             android:id="@+id/text_view_meeting_participants"
@@ -160,14 +168,6 @@
             android:layout_height="wrap_content"
             tools:listitem="@layout/fragment_user"
             android:layout_marginBottom="15dp"/>
-
-        <TextView
-            android:id="@+id/text_view_need_infos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#FF0000"
-            android:textSize="16sp"
-            android:text="Veuillez Saisir toutes les informations" />
 
         <Button
             android:id="@+id/button_add_meeting"
