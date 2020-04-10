@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/filter_meeting"
-        android:title="Filtrer"
+        android:title="@string/filter"
         app:showAsAction="always|withText">
         <menu>
             <item
                 android:id="@+id/filter_by_room"
-                android:title="Par Salle" />
+                android:title="@string/by_room" />
             <item
                 android:id="@+id/filter_by_date"
-                android:title="Par Date" />
+                android:title="@string/by_date" />
             <item
                 android:id="@+id/reinitialize_filter"
-                android:title="Réinitialiser"/>
+                android:title="@string/reinit"/>
         </menu>
     </item>
 </menu>

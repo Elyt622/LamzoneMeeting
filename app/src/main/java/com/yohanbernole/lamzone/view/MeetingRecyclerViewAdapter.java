@@ -3,6 +3,7 @@ package com.yohanbernole.lamzone.view;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -88,7 +91,13 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             holder.listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("ID", meeting.getId());
+                    FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
+                    DetailMeetingFragment detailMeetingFragment = new DetailMeetingFragment();
+                    detailMeetingFragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().replace(R.id.container_fragment, detailMeetingFragment)
+                            .commit();
                 }
             });
         }
@@ -96,7 +105,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mApiService.removeMeeting(meeting); // or mMeetings.remove(position);
+                mApiService.removeMeeting(meeting);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,getItemCount());
             }

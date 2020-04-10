@@ -53,11 +53,14 @@ public class DetailsMeetingActivity extends AppCompatActivity {
         String date = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.FRANCE).format(meeting.getHours());
         textViewDate.setText(date);
 
+        String nameRoom = getString(R.string.room) + meeting.getLocation().getName();
+        String nameDuration = getString(R.string.duration) + meeting.getDuration() + getString(R.string.minute);
+
         textViewName.setText(meeting.getName());
         colorMeeting.setImageTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
-        textViewRoom.setText("Salle " + meeting.getLocation().getName());
+        textViewRoom.setText(nameRoom);
         textViewSubject.setText(meeting.getSubject());
-        textViewDuration.setText("Durée " + meeting.getDuration() + " minutes");
+        textViewDuration.setText(nameDuration);
 
     }
 

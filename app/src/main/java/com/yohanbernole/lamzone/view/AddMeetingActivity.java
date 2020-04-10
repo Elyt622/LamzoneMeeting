@@ -132,7 +132,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 if(!nameMeetingEditText.getText().toString().isEmpty() && meetingRoomChoose != null && dateChoose != null &&
                         !subjectMeetingEditText.getText().toString().isEmpty() && listParticipant.size() != 0 && !editTextMeetingDuration.getText().toString().isEmpty()) {
                     if(!checkDateIsValid(dateChoose, Integer.parseInt(editTextMeetingDuration.getText().toString()), meetingRoomChoose.getId()-1)){
-                        Toast toast = Toast.makeText(v.getContext(), "La salle est indisponible pour ces horaires", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(v.getContext(), R.string.unavailable_room, Toast.LENGTH_LONG);
                         toast.show();
                     }
                     else {
@@ -143,13 +143,13 @@ public class AddMeetingActivity extends AppCompatActivity {
                                 subjectMeetingEditText.getText().toString(),
                                 listParticipant,
                                 Integer.parseInt(editTextMeetingDuration.getText().toString()));
-                        Toast toast = Toast.makeText(v.getContext(), "Réunion ajoutée", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(v.getContext(), R.string.add_meeting, Toast.LENGTH_LONG);
                         toast.show();
                         finish();
                     }
                 }
                 else{
-                    Toast toast = Toast.makeText(v.getContext(), "Veuillez saisir toutes les informations.", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(v.getContext(), R.string.need_all_datas, Toast.LENGTH_LONG);
                     toast.show();
                 }
             }

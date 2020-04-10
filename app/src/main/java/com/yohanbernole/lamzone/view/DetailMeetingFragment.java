@@ -3,12 +3,11 @@ package com.yohanbernole.lamzone.view;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +26,18 @@ import java.util.Locale;
 public class DetailMeetingFragment extends Fragment {
 
     private MeetingApiService apiService = DI.getMeetingApiService();
+
+    private long id = 1;
+
     public DetailMeetingFragment() {
         // Required empty public constructor
     }
 
-    public static DetailMeetingFragment newInstance() {
+    public static DetailMeetingFragment newInstance(Bundle bundle) {
         DetailMeetingFragment fragment = new DetailMeetingFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
+        fragment.setArguments(bundle);
+        bundle.getLong("ID");
+        Log.d("ID", String.valueOf(bundle.getLong("ID")));
         return fragment;
     }
 
@@ -44,9 +47,14 @@ public class DetailMeetingFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        long id = 1;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_details_meeting, container, false);
+
+        if (getArguments() != null) {
+            id = getArguments().getLong("ID", 1);
+        }
+
         // *** Bind View *** //
         ImageView colorMeeting = view.findViewById(R.id.details_meeting_color);
         TextView textViewName = view.findViewById(R.id.details_meeting_name);
@@ -56,9 +64,6 @@ public class DetailMeetingFragment extends Fragment {
         TextView textViewSubject = view.findViewById(R.id.details_meeting_subject);
         TextView textViewDuration = view.findViewById(R.id.details_meeting_duration);
 
-        if (getArguments() != null) {
-            id = getArguments().getLong("ID", 1);
-        }
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
@@ -72,21 +77,14 @@ public class DetailMeetingFragment extends Fragment {
         String date = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.FRANCE).format(meeting.getHours());
         textViewDate.setText(date);
 
+        String nameRoom = getString(R.string.room) + meeting.getLocation().getName();
+        String duration = getString(R.string.duration) + meeting.getDuration() + getString(R.string.minute);
+
         textViewName.setText(meeting.getName());
         colorMeeting.setImageTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
-        textViewRoom.setText("Salle " + meeting.getLocation().getName());
+        textViewRoom.setText(nameRoom);
         textViewSubject.setText(meeting.getSubject());
-        textViewDuration.setText("Durée " + meeting.getDuration() + " minutes");
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_details_meeting, container, false);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+        textViewDuration.setText(duration);
+        return view;
     }
 }

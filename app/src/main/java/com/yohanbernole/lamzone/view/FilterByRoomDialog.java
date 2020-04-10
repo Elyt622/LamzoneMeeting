@@ -26,7 +26,7 @@ public class FilterByRoomDialog extends DialogFragment {
         selectedItems.clear();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-        builder.setTitle("Filtrer par salle").setMultiChoiceItems(R.array.rooms, null, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setTitle(R.string.filter_by_room).setMultiChoiceItems(R.array.rooms, null, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if(isChecked){
@@ -35,7 +35,7 @@ public class FilterByRoomDialog extends DialogFragment {
             }
         })
                 // Set the action buttons
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         RecyclerView rv = Objects.requireNonNull(getActivity()).findViewById(R.id.container);
@@ -44,7 +44,7 @@ public class FilterByRoomDialog extends DialogFragment {
                         mAdapter2.notifyDataSetChanged();
                     }
                 })
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

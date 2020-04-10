@@ -19,7 +19,7 @@
         android:layout_marginBottom="10dp"
         android:background="#4103DAC5"
         android:gravity="center"
-        android:text="Prénom"
+        android:text="@string/name"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -39,7 +39,7 @@
         android:layout_marginBottom="10dp"
         android:background="#5E03DAC5"
         android:gravity="center"
-        android:text="Adresse mail"
+        android:text="@string/address_mail"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="#A303DAC5"
-        android:text="Ajouter"
+        android:text="@string/add"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         android:textStyle="bold"

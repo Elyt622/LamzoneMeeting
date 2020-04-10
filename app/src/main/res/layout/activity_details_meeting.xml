@@ -33,7 +33,7 @@
             android:layout_marginTop="-120dp"
             android:src="@drawable/ic_circle"
             android:tint="#FFFFFF"
-            android:contentDescription="Meeting color" />
+            android:contentDescription="@string/meeting_color" />
 
         <TextView
             android:id="@+id/details_meeting_subject"

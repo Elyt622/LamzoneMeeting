@@ -10,7 +10,7 @@
         android:id="@+id/text_view_email_fragment_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
         android:textSize="16sp"
         android:layout_marginTop="2.5dp"/>
 

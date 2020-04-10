@@ -1,5 +1,38 @@
 <resources>
     <string name="app_name">Lamzone</string>
     <string name="mail_invalid">Veuillez saisir une addresse mail valide !</string>
-    <string name="need_infos">Veuillez saisir toutes les informations !</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="room">\"Salle \"</string>
+    <string name="duration">\"Durée \"</string>
+    <string name="minute">\" minutes\"</string>
+    <string name="unavailable_room">La salle est indisponible pour ces horaires</string>
+    <string name="add_meeting">Réunion ajoutée</string>
+    <string name="need_all_datas">Veuillez saisir toutes les informations.</string>
+    <string name="add_user">Utilisateur ajouté</string>
+    <string name="mail_exist">L\'addresse mail existe déjà.</string>
+    <string name="invalid_mail">Veuillez saisir une adresse mail valide.</string>
+    <string name="filter_by_room">Filtrer par salle</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">OK</string>
+    <string name="name_of_meeting">Nom de la réunion</string>
+    <string name="room_of_meeting">Salle de réunion</string>
+    <string name="subject_of_meeting">Sujet de la réunion</string>
+    <string name="date_of_meeting">Date de la réunion</string>
+    <string name="duration_of_meeting">Durée de la réunion</string>
+    <string name="duration_in_minute">Durée (en minutes)</string>
+    <string name="participants_in_meeting">Participants à la réunion</string>
+    <string name="exemple_mail">Ex: contact@lamzone.com</string>
+    <string name="add_participant">Ajouter participant</string>
+    <string name="add_meeting_to_list">Ajouter la réunion</string>
+    <string name="name">Prénom</string>
+    <string name="address_mail">Adresse mail</string>
+    <string name="add">Ajouter</string>
+    <string name="meeting_color">Meeting color</string>
+    <string name="remove_button">remove_button</string>
+    <string name="add_new_user">Add new user</string>
+    <string name="filter">Filtrer</string>
+    <string name="by_room">Par Salle</string>
+    <string name="by_date">Par Date</string>
+    <string name="reinit">Réinitialiser</string>
 </resources>

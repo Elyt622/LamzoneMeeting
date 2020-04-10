@@ -38,21 +38,21 @@ public class AddUserActivity extends AppCompatActivity {
                     mApiService.createUser(mApiService.getUsers().size()+1,
                             editTextUsername.getText().toString(),
                             editTextEmailUser.getText().toString());
-                    Toast toast = Toast.makeText(v.getContext(), "Utilisateur ajouté",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(v.getContext(), R.string.add_user,Toast.LENGTH_LONG);
                     toast.show();
                     finish();
                 }
                 else{
                     if(mApiService.getAllEmails().contains(editTextEmailUser.getText().toString())) {
-                        Toast toast = Toast.makeText(v.getContext(), "L'addresse mail existe déjà.",Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(v.getContext(), R.string.mail_exist,Toast.LENGTH_LONG);
                         toast.show();
                     }
                     else if(editTextEmailUser.getText().toString().isEmpty() || editTextUsername.getText().toString().isEmpty()){
-                        Toast toast = Toast.makeText(v.getContext(), "Veuillez saisir toutes les informations.",Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(v.getContext(), R.string.need_all_datas,Toast.LENGTH_LONG);
                         toast.show();
                     }
                     else if(!editTextEmailUser.getText().toString().contains("@") || !editTextEmailUser.getText().toString().contains(".")) {
-                        Toast toast = Toast.makeText(v.getContext(), "Veuillez saisir une adresse mail valide.",Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(v.getContext(), R.string.invalid_mail,Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }

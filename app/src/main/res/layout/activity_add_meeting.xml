@@ -21,7 +21,7 @@
             android:layout_height="50dp"
             android:background="#5103DAC5"
             android:gravity="center"
-            android:text="Nom de la réunion"
+            android:text="@string/name_of_meeting"
             android:textSize="24sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"/>
@@ -30,7 +30,7 @@
             android:id="@+id/edit_text_meeting_name"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Nom de la réunion"
+            android:hint="@string/name_of_meeting"
             android:gravity="center"
             android:inputType="text"
             android:layout_marginBottom="10dp"/>
@@ -47,7 +47,7 @@
                 android:id="@+id/text_view_meeting_room"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Salle de réunion"
+                android:text="@string/room_of_meeting"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -67,7 +67,7 @@
             android:layout_height="50dp"
             android:background="#8003DAC5"
             android:gravity="center"
-            android:text="Sujet de la réunion"
+            android:text="@string/subject_of_meeting"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -76,7 +76,7 @@
             android:id="@+id/edit_text_subject_meeting"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Sujet de la réunion"
+            android:hint="@string/subject_of_meeting"
             android:inputType="text"
             android:gravity="center"
             android:layout_marginBottom="10dp"/>
@@ -87,7 +87,7 @@
             android:layout_height="50dp"
             android:background="#03DAC5"
             android:gravity="center"
-            android:text="Date de la réunion"
+            android:text="@string/date_of_meeting"
             android:textSize="24sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
@@ -116,7 +116,7 @@
             android:layout_height="50dp"
             android:background="#03DAC5"
             android:gravity="center"
-            android:text="Durée de la réunion"
+            android:text="@string/duration_of_meeting"
             android:textSize="24sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
@@ -126,7 +126,7 @@
             android:id="@+id/edit_text_meeting_duration"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Durée (en minutes)"
+            android:hint="@string/duration_in_minute"
             android:gravity="center"
             android:inputType="number"
             android:layout_marginBottom="10dp"/>
@@ -137,7 +137,7 @@
             android:layout_height="50dp"
             android:background="#8003DAC5"
             android:gravity="center"
-            android:text="Participants à la réunion"
+            android:text="@string/participants_in_meeting"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -147,7 +147,7 @@
             android:id="@+id/edit_text_email_user_meeting"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Ex: contact@lamzone.com"
+            android:hint="@string/exemple_mail"
             android:inputType="textEmailAddress"
             android:gravity="center"
             android:layout_marginBottom="15dp"/>
@@ -156,7 +156,7 @@
             android:id="@+id/button_add_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ajouter participant"
+            android:text="@string/add_participant"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:background="#8003DAC5"
@@ -177,7 +177,7 @@
             android:background="#8003DAC5"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:text="Ajouter la réunion" />
+            android:text="@string/add_meeting_to_list" />
 
     </LinearLayout>
 </ScrollView>
