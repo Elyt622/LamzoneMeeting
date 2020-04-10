@@ -27,22 +27,20 @@ import com.yohanbernole.lamzone.model.MeetingRoom;
 import com.yohanbernole.lamzone.model.User;
 import com.yohanbernole.lamzone.service.MeetingApiService;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
     MeetingApiService mMeetingApiService;
     MultiAutoCompleteTextView addUsersWithCompletion;
     MeetingRoom meetingRoomChoose;
-    String dateChoose, timeChoose;
-    Date date;
+    Date dateChoose = null;
     ArrayList<User> listParticipant = new ArrayList<>();
+    long dateInMillis = 0;
+    int year1 = 0, month1, dayOfMonth1, hourOfDay1 = 0, minute1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         Button addEmailUserButton = findViewById(R.id.button_add_user);
         addUsersWithCompletion = findViewById(R.id.edit_text_email_user_meeting);
         Spinner meetingRoomSpinner = findViewById(R.id.spinner_meeting_room);
-        DatePicker dateMeetingDatePicker = findViewById(R.id.date_picker_add_date);
+        final DatePicker dateMeetingDatePicker = findViewById(R.id.date_picker_add_date);
         TimePicker timeMeetingTimePicker = findViewById(R.id.time_picker_add_date);
         final EditText subjectMeetingEditText = findViewById(R.id.edit_text_subject_meeting);
         Button addMeetingButton = findViewById(R.id.button_add_meeting);
@@ -65,31 +63,34 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         // *** Configure Date of Meeting *** //
         timeMeetingTimePicker.setIs24HourView(true);
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         dateMeetingDatePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                dateChoose = dayOfMonth + "/" + (month + 1) + "/" + year;
+                year1 = year;
+                month1 = month;
+                dayOfMonth1 = dayOfMonth;
+                if(hourOfDay1 != 0){
+                    dateChoose = getDate(year1, month1, dayOfMonth1, hourOfDay1, minute1);
+                }
             }
         });
-
         timeMeetingTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                timeChoose = hourOfDay + ":" + minute;
-                try {
-                    date = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.FRANCE).parse(dateChoose + " " + timeChoose);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                hourOfDay1 = hourOfDay;
+                minute1 = minute;
+                if(year1 != 0){
+                    dateChoose = getDate(year1, month1, dayOfMonth1, hourOfDay1, minute1);
                 }
             }
         });
 
         // *** Configure Spinner with Meeting rooms name *** //
         List<String> list = new ArrayList<>();
-        for(int i = 0; i < mMeetingApiService.getMeetingRooms().size(); i++){
-            list.add(mMeetingApiService.getMeetingRooms().get(i).getName());
+        for(MeetingRoom room : mMeetingApiService.getMeetingRooms()){
+            list.add(room.getName());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<> (this, R.layout.spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -128,16 +129,16 @@ public class AddMeetingActivity extends AppCompatActivity {
         addMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!nameMeetingEditText.getText().toString().isEmpty() && date != null && meetingRoomChoose != null &&
+                if(!nameMeetingEditText.getText().toString().isEmpty() && meetingRoomChoose != null && dateChoose != null &&
                         !subjectMeetingEditText.getText().toString().isEmpty() && listParticipant.size() != 0 && !editTextMeetingDuration.getText().toString().isEmpty()) {
-                    if(!checkDateIsValid(date, Integer.parseInt(editTextMeetingDuration.getText().toString()), meetingRoomChoose.getId()-1)){
+                    if(!checkDateIsValid(dateChoose, Integer.parseInt(editTextMeetingDuration.getText().toString()), meetingRoomChoose.getId()-1)){
                         Toast toast = Toast.makeText(v.getContext(), "La salle est indisponible pour ces horaires", Toast.LENGTH_LONG);
                         toast.show();
                     }
                     else {
                         mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
                                 nameMeetingEditText.getText().toString(),
-                                date,
+                                dateChoose,
                                 meetingRoomChoose,
                                 subjectMeetingEditText.getText().toString(),
                                 listParticipant,
@@ -153,6 +154,13 @@ public class AddMeetingActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private Date getDate(int year, int month, int dayOfMonth, int hourOfDay, int minute){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, dayOfMonth, hourOfDay, minute);
+        dateInMillis = calendar.getTimeInMillis();
+        return new Date(dateInMillis);
     }
 
     private Date getEndDateMeeting(Date date, int duration){
