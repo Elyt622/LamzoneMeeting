@@ -35,4 +35,5 @@
     <string name="by_room">Par Salle</string>
     <string name="by_date">Par Date</string>
     <string name="reinit">Réinitialiser</string>
+    <string name="color_meeting">Color meeting</string>
 </resources>

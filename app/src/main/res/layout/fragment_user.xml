@@ -21,5 +21,6 @@
         android:backgroundTint="#FFFFFF"
         app:srcCompat="@drawable/ic_clear_24"
         tools:layout_editor_absoluteX="68dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        android:contentDescription="@string/remove_button" />
 </LinearLayout>
