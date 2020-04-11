@@ -58,7 +58,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                 + " - " + strDate
                 + " - " + meeting.getSubject();
 
-        String nameUsers = null;
+        String nameUsers;
         if(meeting.getUsers().size() >= 2){
             nameUsers = meeting.getUsers().get(0).getEmail() + ", " + meeting.getUsers().get(1).getEmail();
         }else{

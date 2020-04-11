@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +30,6 @@ public class DetailMeetingFragment extends Fragment {
 
     public DetailMeetingFragment() {
         // Required empty public constructor
-    }
-
-    public static DetailMeetingFragment newInstance(Bundle bundle) {
-        DetailMeetingFragment fragment = new DetailMeetingFragment();
-        fragment.setArguments(bundle);
-        bundle.getLong("ID");
-        Log.d("ID", String.valueOf(bundle.getLong("ID")));
-        return fragment;
     }
 
     @Override
