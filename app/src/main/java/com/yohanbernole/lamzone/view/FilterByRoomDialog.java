@@ -34,7 +34,6 @@ public class FilterByRoomDialog extends DialogFragment {
                 }
             }
         })
-                // Set the action buttons
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {

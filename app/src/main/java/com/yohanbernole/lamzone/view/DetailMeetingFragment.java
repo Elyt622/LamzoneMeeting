@@ -69,7 +69,7 @@ public class DetailMeetingFragment extends Fragment {
         recyclerViewMail.setAdapter(adapter);
         recyclerViewMail.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        String date = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.FRANCE).format(meeting.getHours());
+        String date = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.FRANCE).format(meeting.getDate());
         textViewDate.setText(date);
 
         String nameRoom = getString(R.string.room) + meeting.getLocation().getName();

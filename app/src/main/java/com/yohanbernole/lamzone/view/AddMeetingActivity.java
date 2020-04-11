@@ -37,10 +37,11 @@ public class AddMeetingActivity extends AppCompatActivity {
     MeetingApiService mMeetingApiService;
     MultiAutoCompleteTextView addUsersWithCompletion;
     MeetingRoom meetingRoomChoose;
-    Date dateChoose = null;
+    Date submitDate = null;
     ArrayList<User> listParticipant = new ArrayList<>();
     long dateInMillis = 0;
-    int year1 = 0, month1, dayOfMonth1, hourOfDay1 = 0, minute1;
+    int year1 = -1, month1, dayOfMonth1, hourOfDay1 = -1, minute1;
+    EditText subjectMeetingEditText, nameMeetingEditText, editTextMeetingDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         Spinner meetingRoomSpinner = findViewById(R.id.spinner_meeting_room);
         final DatePicker dateMeetingDatePicker = findViewById(R.id.date_picker_add_date);
         TimePicker timeMeetingTimePicker = findViewById(R.id.time_picker_add_date);
-        final EditText subjectMeetingEditText = findViewById(R.id.edit_text_subject_meeting);
+        subjectMeetingEditText = findViewById(R.id.edit_text_subject_meeting);
         Button addMeetingButton = findViewById(R.id.button_add_meeting);
-        final EditText nameMeetingEditText = findViewById(R.id.edit_text_meeting_name);
+        nameMeetingEditText = findViewById(R.id.edit_text_meeting_name);
         final RecyclerView rv = findViewById(R.id.recycler_view_user_participant);
-        final EditText editTextMeetingDuration = findViewById(R.id.edit_text_meeting_duration);
+        editTextMeetingDuration = findViewById(R.id.edit_text_meeting_duration);
 
         // *** Configure Date of Meeting *** //
         timeMeetingTimePicker.setIs24HourView(true);
@@ -71,8 +72,8 @@ public class AddMeetingActivity extends AppCompatActivity {
                 year1 = year;
                 month1 = month;
                 dayOfMonth1 = dayOfMonth;
-                if(hourOfDay1 != 0){
-                    dateChoose = getDate(year1, month1, dayOfMonth1, hourOfDay1, minute1);
+                if (hourOfDay1 != -1) {
+                    submitDate = getDate(year1, month1, dayOfMonth1, hourOfDay1, minute1);
                 }
             }
         });
@@ -81,18 +82,18 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 hourOfDay1 = hourOfDay;
                 minute1 = minute;
-                if(year1 != 0){
-                    dateChoose = getDate(year1, month1, dayOfMonth1, hourOfDay1, minute1);
+                if (year1 != -1) {
+                    submitDate = getDate(year1, month1, dayOfMonth1, hourOfDay1, minute1);
                 }
             }
         });
 
         // *** Configure Spinner with Meeting rooms name *** //
         List<String> list = new ArrayList<>();
-        for(MeetingRoom room : mMeetingApiService.getMeetingRooms()){
+        for (MeetingRoom room : mMeetingApiService.getMeetingRooms()) {
             list.add(room.getName());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<> (this, R.layout.spinner_item, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         meetingRoomSpinner.setAdapter(adapter);
         meetingRoomSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
@@ -129,33 +130,23 @@ public class AddMeetingActivity extends AppCompatActivity {
         addMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!nameMeetingEditText.getText().toString().isEmpty() && meetingRoomChoose != null && dateChoose != null &&
-                        !subjectMeetingEditText.getText().toString().isEmpty() && listParticipant.size() != 0 && !editTextMeetingDuration.getText().toString().isEmpty()) {
-                    if(!checkDateIsValid(dateChoose, Integer.parseInt(editTextMeetingDuration.getText().toString()), meetingRoomChoose.getId()-1)){
-                        Toast toast = Toast.makeText(v.getContext(), R.string.unavailable_room, Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                    else {
-                        mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
-                                nameMeetingEditText.getText().toString(),
-                                dateChoose,
-                                meetingRoomChoose,
-                                subjectMeetingEditText.getText().toString(),
-                                listParticipant,
-                                Integer.parseInt(editTextMeetingDuration.getText().toString()));
-                        Toast toast = Toast.makeText(v.getContext(), R.string.add_meeting, Toast.LENGTH_LONG);
-                        toast.show();
-                        finish();
-                    }
-                }
-                else{
-                    Toast toast = Toast.makeText(v.getContext(), R.string.need_all_datas, Toast.LENGTH_LONG);
+                if (checkAllDataIsValid()) {
+                    mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
+                            nameMeetingEditText.getText().toString(),
+                            submitDate,
+                            meetingRoomChoose,
+                            subjectMeetingEditText.getText().toString(),
+                            listParticipant,
+                            Integer.parseInt(editTextMeetingDuration.getText().toString()));
+                    Toast toast = Toast.makeText(v.getContext(), R.string.add_meeting, Toast.LENGTH_LONG);
                     toast.show();
+                    finish();
                 }
             }
         });
     }
 
+    // *** Get a date from years, months, days, hours and minutes *** //
     private Date getDate(int year, int month, int dayOfMonth, int hourOfDay, int minute){
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, dayOfMonth, hourOfDay, minute);
@@ -163,7 +154,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         return new Date(dateInMillis);
     }
 
-    private Date getEndDateMeeting(Date date, int duration){
+    // *** Get an end date from a date and duration *** //
+    private Date getEndDateFromDateDuration(Date date, int duration){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.setTime(date);
@@ -171,16 +163,34 @@ public class AddMeetingActivity extends AppCompatActivity {
         return calendar.getTime();
     }
 
-    private Boolean checkDateIsValid(Date date, int duration, long idRoom){
-        Date endDate = getEndDateMeeting(date, duration);
+    // *** Check if the meeting submission date doesn't conflict with another meeting date for the selected room *** //
+    private boolean checkDateIsValid(Date date, int duration, long idRoom){
+        Date endDate = getEndDateFromDateDuration(date, duration);
         List<Meeting> meetings = mMeetingApiService.filterMeetingByRoomId(idRoom);
-        for(Meeting i: meetings) {
-            if((date.after(i.getHours()) && date.before(getEndDateMeeting(i.getHours(), i.getDuration()))) ||
-                    (endDate.after(i.getHours()) &&  endDate.before(getEndDateMeeting(i.getHours(), i.getDuration()))) ||
-                    (i.getHours().after(date) && i.getHours().before(endDate)) ||
-                    (getEndDateMeeting(i.getHours(), i.getDuration()).after(date) && getEndDateMeeting(i.getHours(), i.getDuration()).before(endDate))){
+        for(Meeting meeting: meetings) {
+            Date beginDateCurrentMeeting = meeting.getDate();
+            Date endDateCurrentMeeting = getEndDateFromDateDuration(meeting.getDate(), meeting.getDuration());
+            // *** If the date submitted is between the start and the end of the current meeting *** //
+            if((date.after(beginDateCurrentMeeting) && date.before(endDateCurrentMeeting)) || (endDate.after(beginDateCurrentMeeting) &&  endDate.before(endDateCurrentMeeting)) ||
+                    // *** If the date of the current meeting is between the start of the submission date and the end *** //
+                    (beginDateCurrentMeeting.after(date) && beginDateCurrentMeeting.before(endDate)) || (endDateCurrentMeeting.after(date) && endDateCurrentMeeting.before(endDate))){
                 return false;
             }
+        }
+        return true;
+    }
+
+    // *** Check if the meeting submission is complete *** //
+    private boolean checkAllDataIsValid() {
+        if(nameMeetingEditText.getText().toString().isEmpty() || meetingRoomChoose == null || submitDate == null ||
+                subjectMeetingEditText.getText().toString().isEmpty() || listParticipant.size() == 0 || editTextMeetingDuration.getText().toString().isEmpty()) {
+            Toast toast = Toast.makeText(getBaseContext(), R.string.need_all_datas, Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        } else if(!checkDateIsValid(submitDate, Integer.parseInt(editTextMeetingDuration.getText().toString()), meetingRoomChoose.getId()-1)) {
+            Toast toast = Toast.makeText(getBaseContext(), R.string.unavailable_room, Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
         return true;
     }

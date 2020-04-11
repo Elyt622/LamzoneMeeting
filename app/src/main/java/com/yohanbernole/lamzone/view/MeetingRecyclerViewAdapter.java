@@ -49,7 +49,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         mApiService = DI.getMeetingApiService();
         final Meeting meeting = mMeetings.get(position);
 
-        Date date = meeting.getHours();
+        Date date = meeting.getDate();
         DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.FRANCE);
         String strDate = dateFormat.format(date);
         strDate = strDate.replace(":","h");

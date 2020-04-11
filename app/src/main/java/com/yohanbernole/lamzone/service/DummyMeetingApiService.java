@@ -56,8 +56,8 @@ public class DummyMeetingApiService implements MeetingApiService {
         return null;
     }
 
-    public void createMeeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users, int duration){
-        Meeting meeting = new Meeting(id, name, hours, room, subject, users, duration);
+    public void createMeeting(long id, String name, Date date, MeetingRoom room, String subject, ArrayList<User> users, int duration){
+        Meeting meeting = new Meeting(id, name, date, room, subject, users, duration);
         meetings.add(meeting);
     }
 
@@ -91,7 +91,7 @@ public class DummyMeetingApiService implements MeetingApiService {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         ArrayList<Meeting> meetingWithFilterByDate = new ArrayList<>();
         for(int i = 0; i < meetings.size(); i++){
-            cal.setTime(meetings.get(i).getHours());
+            cal.setTime(meetings.get(i).getDate());
             year2 = cal.get(Calendar.YEAR); month2 = cal.get(Calendar.MONTH); day2 = cal.get(Calendar.DAY_OF_MONTH);
             if(year == year2 && month == month2 && day == day2){
                 meetingWithFilterByDate.add(meetings.get(i));

@@ -8,16 +8,16 @@ public class Meeting {
 
     private long id;
     private String name;
-    private Date hours;
+    private Date date;
     private int duration;
     private MeetingRoom room;
     private String subject;
     private ArrayList<User> users;
 
-    public Meeting(long id, String name, Date hours, MeetingRoom room, String subject, ArrayList<User> users, int duration) {
+    public Meeting(long id, String name, Date date, MeetingRoom room, String subject, ArrayList<User> users, int duration) {
         this.id = id;
         this.name = name;
-        this.hours = hours;
+        this.date = date;
         this.room = room;
         this.subject = subject;
         this.users = users;
@@ -60,9 +60,9 @@ public class Meeting {
 
     public void setUsers(ArrayList<User> users) { this.users = users; }
 
-    public void setHours(Date hours) { this.hours = hours; }
+    public void setHours(Date date) { this.date = date; }
 
-    public Date getHours() { return hours; }
+    public Date getDate() { return date; }
 
     public void setDuration(int duration) { this.duration = duration; }
 

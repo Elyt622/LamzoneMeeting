@@ -47,19 +47,19 @@ public class AddUserActivity extends AppCompatActivity {
     }
 
     boolean checkDataIsValid() {
-        //*** If email exist in the list email***//
+        // *** If email exist in the list email *** //
         if(mApiService.getAllEmails().contains(editTextEmailUser.getText().toString())) {
             Toast toast = Toast.makeText(getBaseContext(), R.string.mail_exist, Toast.LENGTH_LONG);
             toast.show();
             return false;
         }
-        //*** If email or name are empty ***//
+        // *** If email or name are empty *** //
         else if (editTextUsername.getText().toString().isEmpty() || editTextUsername.getText().toString().isEmpty()) {
             Toast toast = Toast.makeText(getBaseContext(), R.string.need_all_datas, Toast.LENGTH_LONG);
             toast.show();
             return false;
         }
-        //*** If email doesn't contain "@" and "." ***//
+        // *** If email doesn't contain "@" and "." *** //
         else if(!editTextEmailUser.getText().toString().contains("@") || !editTextEmailUser.getText().toString().contains(".")) {
             Toast toast = Toast.makeText(getBaseContext(), R.string.invalid_mail, Toast.LENGTH_LONG);
             toast.show();
