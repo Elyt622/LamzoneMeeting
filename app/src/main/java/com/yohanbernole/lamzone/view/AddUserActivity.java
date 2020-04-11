@@ -18,6 +18,7 @@ import java.util.Objects;
 public class AddUserActivity extends AppCompatActivity {
 
     private MeetingApiService mApiService;
+    EditText editTextUsername, editTextEmailUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,38 +27,45 @@ public class AddUserActivity extends AppCompatActivity {
         mApiService = DI.getMeetingApiService();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        final EditText editTextUsername = findViewById(R.id.edit_text_username);
-        final EditText editTextEmailUser = findViewById(R.id.edit_text_user_email);
+        editTextUsername = findViewById(R.id.edit_text_username);
+        editTextEmailUser = findViewById(R.id.edit_text_user_email);
         Button buttonAddUser = findViewById(R.id.button_submit_new_user);
 
         buttonAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mApiService.getAllEmails().contains(editTextEmailUser.getText().toString()) && editTextEmailUser.getText().toString().contains("@") &&
-                        editTextEmailUser.getText().toString().contains(".") && !editTextUsername.getText().toString().isEmpty()) {
-                    mApiService.createUser(mApiService.getUsers().size()+1,
+                if(checkDataIsValid()) {
+                    mApiService.createUser(mApiService.getUsers().size() + 1,
                             editTextUsername.getText().toString(),
                             editTextEmailUser.getText().toString());
-                    Toast toast = Toast.makeText(v.getContext(), R.string.add_user,Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(v.getContext(), R.string.add_user, Toast.LENGTH_LONG);
                     toast.show();
                     finish();
                 }
-                else{
-                    if(mApiService.getAllEmails().contains(editTextEmailUser.getText().toString())) {
-                        Toast toast = Toast.makeText(v.getContext(), R.string.mail_exist,Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                    else if(editTextEmailUser.getText().toString().isEmpty() || editTextUsername.getText().toString().isEmpty()){
-                        Toast toast = Toast.makeText(v.getContext(), R.string.need_all_datas,Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                    else if(!editTextEmailUser.getText().toString().contains("@") || !editTextEmailUser.getText().toString().contains(".")) {
-                        Toast toast = Toast.makeText(v.getContext(), R.string.invalid_mail,Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                }
             }
         });
+    }
+
+    boolean checkDataIsValid() {
+        //*** If email exist in the list email***//
+        if(mApiService.getAllEmails().contains(editTextEmailUser.getText().toString())) {
+            Toast toast = Toast.makeText(getBaseContext(), R.string.mail_exist, Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+        //*** If email or name are empty ***//
+        else if (editTextUsername.getText().toString().isEmpty() || editTextUsername.getText().toString().isEmpty()) {
+            Toast toast = Toast.makeText(getBaseContext(), R.string.need_all_datas, Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+        //*** If email doesn't contain "@" and "." ***//
+        else if(!editTextEmailUser.getText().toString().contains("@") || !editTextEmailUser.getText().toString().contains(".")) {
+            Toast toast = Toast.makeText(getBaseContext(), R.string.invalid_mail, Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+            return true;
     }
 
     @Override

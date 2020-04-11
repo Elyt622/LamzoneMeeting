@@ -58,35 +58,30 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                 + " - " + strDate
                 + " - " + meeting.getSubject();
 
-        String nameUsers;
-        if(meeting.getUsers().size() >= 2){
-            nameUsers = meeting.getUsers().get(0).getEmail() + ", " + meeting.getUsers().get(1).getEmail();
-        }else{
-            nameUsers = meeting.getUsers().get(0).getEmail();
-        }
+        String nameUsers = getUsersToPrint(meeting);
 
-        if(nameUsers.length() > 36) {
-            nameUsers = nameUsers.substring(0, 36) + "...";
-        }
-
-        if(nameMeeting.length() > 30) {
-            nameMeeting = nameMeeting.substring(0, 30) + "...";
-        }
+        nameUsers = getFormatString(nameUsers, 36);
+        nameMeeting = getFormatString(nameMeeting, 30);
 
         holder.name.setText(nameMeeting);
         holder.meeting_users.setText(nameUsers);
         holder.image.setImageTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
+
+        // *** Orientation Portrait *** //
         if(holder.orientation == 0)
         {
             holder.listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), DetailsMeetingActivity.class);
-                    intent.putExtra("ID", meeting.getId());
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("ID", meeting.getId());
+                    intent.putExtras(bundle);
                     ActivityCompat.startActivity(v.getContext(), intent, null);
                 }
             });
         }
+        // *** Orientation Paysage *** //
         else if(holder.orientation == 1){
             holder.listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -96,7 +91,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                     FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
                     DetailMeetingFragment detailMeetingFragment = new DetailMeetingFragment();
                     detailMeetingFragment.setArguments(bundle);
-                    fragmentManager.beginTransaction().replace(R.id.container_fragment, detailMeetingFragment)
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container_fragment, detailMeetingFragment)
                             .commit();
                 }
             });
@@ -137,5 +133,22 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             meeting_users = view.findViewById(R.id.item_list_user);
             listItem = view.findViewById(R.id.item_meeting);
         }
+    }
+
+    private String getUsersToPrint(Meeting meeting){
+        String nameUsers;
+        if(meeting.getUsers().size() >= 2){
+            nameUsers = meeting.getUsers().get(0).getEmail() + ", " + meeting.getUsers().get(1).getEmail();
+        }else{
+            nameUsers = meeting.getUsers().get(0).getEmail();
+        }
+        return nameUsers;
+    }
+
+    private String getFormatString(String str, int nb){
+        if(str.length() > nb) {
+            str = str.substring(0, nb) + "...";
+        }
+        return str;
     }
 }

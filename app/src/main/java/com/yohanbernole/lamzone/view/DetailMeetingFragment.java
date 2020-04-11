@@ -21,6 +21,7 @@ import com.yohanbernole.lamzone.service.MeetingApiService;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class DetailMeetingFragment extends Fragment {
 
@@ -40,10 +41,13 @@ public class DetailMeetingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_details_meeting, container, false);
+        View view = inflater.inflate(R.layout.fragment_details_meeting, container, false);
 
         if (getArguments() != null) {
             id = getArguments().getLong("ID", 1);
+        }
+        else if(Objects.requireNonNull(getActivity()).getIntent() != null){
+            id = getActivity().getIntent().getLongExtra("ID", 1);
         }
 
         // *** Bind View *** //
