@@ -68,10 +68,10 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     public List<Meeting> filterMeetingByRoomId(List<Integer> ids){
         ArrayList<Meeting> meetingWithFilterByRooms = new ArrayList<>();
-        for(int i = 0; i < meetings.size(); i++) {
+        for(Meeting meeting : meetings) {
             for (int id : ids) {
-                if(meetings.get(i).getLocation().getId() == id + 1)
-                    meetingWithFilterByRooms.add(meetings.get(i));
+                if(meeting.getLocation().getId() == id )
+                    meetingWithFilterByRooms.add(meeting);
             }
         }
         return meetingWithFilterByRooms;
@@ -79,9 +79,9 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     public List<Meeting> filterMeetingByRoomId(long id){
         ArrayList<Meeting> meetingWithFilterByRooms = new ArrayList<>();
-        for(int i = 0; i < meetings.size(); i++) {
-                if(meetings.get(i).getLocation().getId() == id + 1)
-                    meetingWithFilterByRooms.add(meetings.get(i));
+        for(Meeting meeting : meetings) {
+                if(meeting.getLocation().getId() == id )
+                    meetingWithFilterByRooms.add(meeting);
             }
         return meetingWithFilterByRooms;
     }

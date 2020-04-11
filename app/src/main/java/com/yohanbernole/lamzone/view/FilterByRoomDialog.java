@@ -30,7 +30,7 @@ public class FilterByRoomDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if(isChecked){
-                    selectedItems.add(which);
+                    selectedItems.add(which + 1);
                 }
             }
         })

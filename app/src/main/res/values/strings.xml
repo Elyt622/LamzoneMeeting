@@ -3,9 +3,9 @@
     <string name="mail_invalid">Veuillez saisir une addresse mail valide !</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="room">\"Salle \"</string>
-    <string name="duration">\"Durée \"</string>
-    <string name="minute">\" minutes\"</string>
+    <string name="room">Salle \ </string>
+    <string name="duration">Durée \ </string>
+    <string name="minute"> \ minutes</string>
     <string name="unavailable_room">La salle est indisponible pour ces horaires</string>
     <string name="add_meeting">Réunion ajoutée</string>
     <string name="need_all_datas">Veuillez saisir toutes les informations.</string>
