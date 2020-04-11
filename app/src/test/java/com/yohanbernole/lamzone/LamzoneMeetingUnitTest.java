@@ -66,17 +66,15 @@ public class LamzoneMeetingUnitTest {
 
     @Test
     public void getMeetingWithSuccess() {
-        long id = service.getMeetings().get(0).getId();
         Meeting meeting = service.getMeetings().get(0);
-        Meeting meeting1 = service.getMeeting(id);
+        Meeting meeting1 = service.getMeeting(service.getMeetings().get(0).getId());
         assertEquals(meeting, meeting1);
     }
 
     @Test
     public void getUserWithSuccess() {
-        String email = service.getUsers().get(0).getEmail();
         User user = service.getUsers().get(0);
-        User user1 = service.getUser(email);
+        User user1 = service.getUser(service.getUsers().get(0).getEmail());
         assertEquals(user, user1);
     }
 
