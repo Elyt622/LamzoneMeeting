@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TextViews -->
+    <dimen name="size_text_title_large_land">20sp</dimen>
+    <dimen name="size_text_email_large_land">15sp</dimen>
+    <dimen name="width_text_view_large_land">300dp</dimen>
+    <dimen name="height_text_view_large_land">50dp</dimen>
+    <!-- Images -->
+    <dimen name="size_image_height_large_land">60dp</dimen>
+    <dimen name="size_image_width_large_land">60dp</dimen>
+
+    <dimen name="height_container_large_land">90dp</dimen>
+
+    <dimen name="button_remove_height_large_land">30dp</dimen>
+    <dimen name="button_remove_width_large_land">30dp</dimen>
+
+
+    <!-- TextViews -->
+    <dimen name="size_text_title_large">20sp</dimen>
+    <dimen name="size_text_email_large">17sp</dimen>
+    <dimen name="width_text_view_large">400dp</dimen>
+    <dimen name="height_text_view_large">25dp</dimen>
+    <!-- Images -->
+    <dimen name="size_image_height_large">70dp</dimen>
+    <dimen name="size_image_width_large">70dp</dimen>
+
+    <dimen name="height_container_large">100dp</dimen>
+
+    <dimen name="button_remove_height_large">30dp</dimen>
+    <dimen name="button_remove_width_large">30dp</dimen>
+</resources>
+

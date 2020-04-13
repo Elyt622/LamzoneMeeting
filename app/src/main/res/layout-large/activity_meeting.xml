@@ -27,21 +27,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <FrameLayout
-            android:id="@+id/container_fragment"
-            android:layout_width="380dp"
-            android:layout_height="wrap_content">
-            <fragment
-                android:id="@+id/fragment_details"
-                android:name="com.yohanbernole.lamzone.view.DetailMeetingFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
-    </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

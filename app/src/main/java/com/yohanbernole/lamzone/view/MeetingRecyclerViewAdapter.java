@@ -67,8 +67,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.meeting_users.setText(nameUsers);
         holder.image.setImageTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
 
-        // *** Orientation Portrait *** //
-        if(holder.orientation == 0)
+        // *** Portrait Orientation *** //
+        if(holder.orientation == 0 && holder.tabletLarge == 0)
         {
             holder.listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,8 +81,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                 }
             });
         }
-        // *** Orientation Paysage *** //
-        else if(holder.orientation == 1){
+        // *** Landscape Orientation *** //
+        else if(holder.orientation == 1 || holder.tabletLarge == 1){
             holder.listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -91,9 +91,15 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                     FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
                     DetailMeetingFragment detailMeetingFragment = new DetailMeetingFragment();
                     detailMeetingFragment.setArguments(bundle);
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.container_fragment, detailMeetingFragment)
-                            .commit();
+                    if(fragmentManager.getBackStackEntryCount() <= 1) {
+                        fragmentManager.beginTransaction().replace(R.id.container_fragment, detailMeetingFragment).addToBackStack(null)
+                                .commit();
+                    }
+                        else{
+                            fragmentManager.popBackStack(0, 0);
+                            fragmentManager.beginTransaction().replace(R.id.container_fragment, detailMeetingFragment)
+                                    .commit();
+                        }
                 }
             });
         }
@@ -118,15 +124,13 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         ImageView image;
         ImageButton mDeleteButton;
         LinearLayout listItem;
-        int orientation;
+        int orientation, tabletLarge, tablet;
         ViewHolder(View view) {
             super(view);
-            if(view.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-                orientation = 0;
-            }
-            else if (view.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                orientation = 1;
-            }
+            tablet = view.getResources().getConfiguration().screenWidthDp >= 480 && view.getResources().getConfiguration().screenWidthDp < 720 ? 1 : 0 ;
+            tabletLarge = view.getResources().getConfiguration().screenWidthDp >= 720 ? 1 : 0 ;
+            orientation = view.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 0 : 1 ;
+
             name = view.findViewById(R.id.item_list_name);
             image = view.findViewById(R.id.item_list_color);
             mDeleteButton = view.findViewById(R.id.item_list_delete_button);

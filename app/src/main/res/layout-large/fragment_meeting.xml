@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_meeting"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_container_large"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/item_list_color"
+        android:layout_width="@dimen/size_image_width_large"
+        android:layout_height="@dimen/size_image_height_large"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/color_meeting"
+        android:src="@drawable/ic_circle"
+        android:tint="#FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/item_list_name"
+            android:layout_width="@dimen/width_text_view_large"
+            android:layout_height="@dimen/height_text_view_large"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/size_text_title_large"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_list_user"
+            android:layout_width="@dimen/width_text_view_large"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/size_text_email_large" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/item_list_delete_button"
+        android:layout_width="@dimen/button_remove_width_large"
+        android:layout_height="@dimen/button_remove_width_large"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:contentDescription="@string/remove_button"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_delete_white_24dp" />
+
+</LinearLayout>
