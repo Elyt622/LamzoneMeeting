@@ -1,4 +1,4 @@
-package com.yohanbernole.lamzone.view;
+package com.yohanbernole.lamzone.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;

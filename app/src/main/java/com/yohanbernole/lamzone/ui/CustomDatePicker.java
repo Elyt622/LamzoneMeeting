@@ -1,4 +1,4 @@
-package com.yohanbernole.lamzone.view;
+package com.yohanbernole.lamzone.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;

@@ -1,4 +1,4 @@
-package com.yohanbernole.lamzone.view;
+package com.yohanbernole.lamzone.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

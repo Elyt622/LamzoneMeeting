@@ -7,8 +7,8 @@ import android.widget.TimePicker;
 import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.service.MeetingApiService;
 import com.yohanbernole.lamzone.utils.DeleteViewAction;
-import com.yohanbernole.lamzone.view.CustomDatePicker;
-import com.yohanbernole.lamzone.view.MeetingActivity;
+import com.yohanbernole.lamzone.ui.CustomDatePicker;
+import com.yohanbernole.lamzone.ui.MeetingActivity;
 
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;

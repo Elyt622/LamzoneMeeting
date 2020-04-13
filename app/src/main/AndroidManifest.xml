@@ -9,13 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.AddUserActivity"
+        <activity android:name=".ui.AddUserActivity"
             android:label="Nouvel utilisateur"/>
-        <activity android:name=".view.DetailsMeetingActivity" />
+        <activity android:name=".ui.DetailsMeetingActivity" />
         <activity
-            android:name=".view.AddMeetingActivity"
+            android:name=".ui.AddMeetingActivity"
             android:label="Nouvelle Réunion" />
-        <activity android:name=".view.MeetingActivity">
+        <activity android:name=".ui.MeetingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
