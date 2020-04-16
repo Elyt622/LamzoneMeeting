@@ -1,4 +1,4 @@
-package com.yohanbernole.lamzone.ui;
+package com.yohanbernole.lamzone.ui.fragment;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.service.MeetingApiService;
+import com.yohanbernole.lamzone.ui.adapter.UserDetailRecyclerViewAdapter;
 
 import java.text.DateFormat;
 import java.util.Calendar;

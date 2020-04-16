@@ -1,4 +1,4 @@
-package com.yohanbernole.lamzone.ui;
+package com.yohanbernole.lamzone.ui.adapter;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -16,6 +16,8 @@ import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.service.MeetingApiService;
+import com.yohanbernole.lamzone.ui.DetailsMeetingActivity;
+import com.yohanbernole.lamzone.ui.fragment.DetailMeetingFragment;
 
 import java.util.Date;
 import java.util.List;
@@ -32,7 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder>{
     private final List<Meeting> mMeetings;
     private MeetingApiService mApiService;
-    MeetingRecyclerViewAdapter(List<Meeting> items) {
+    public MeetingRecyclerViewAdapter(List<Meeting> items) {
         mMeetings = items;
     }
 

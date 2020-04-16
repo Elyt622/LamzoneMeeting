@@ -32,27 +32,22 @@ public class LamzoneMeetingUnitTest {
     public void getMeetingsWithSuccess() {
         List<Meeting> meetings = service.getMeetings();
         List<Meeting> expectedMeetings = MeetingGenerator.MEETINGS;
-        for(Meeting meeting: meetings){
-            assertTrue(expectedMeetings.contains(meeting));
-        }
+        assertTrue(expectedMeetings.containsAll(meetings));
     }
 
     @Test
     public void getMeetingRoomsWithSuccess() {
         List<MeetingRoom> rooms = service.getMeetingRooms();
         List<MeetingRoom> expectedRooms = MeetingGenerator.MEETINGROOMS;
-        for (MeetingRoom room : rooms){
-            assertTrue(expectedRooms.contains(room));
-        }
+        assertTrue(expectedRooms.containsAll(rooms));
+
     }
 
     @Test
     public void getUsers() {
         List<User> users = service.getUsers();
         List<User> expectedUsers = MeetingGenerator.USERS;
-        for (User user : users){
-            assertTrue(expectedUsers.contains(user));
-        }
+       assertTrue(expectedUsers.containsAll(users));
     }
 
     @Test
@@ -67,14 +62,14 @@ public class LamzoneMeetingUnitTest {
     @Test
     public void getMeetingWithSuccess() {
         Meeting meeting = service.getMeetings().get(0);
-        Meeting meeting1 = service.getMeeting(service.getMeetings().get(0).getId());
+        Meeting meeting1 = service.getMeeting(meeting.getId());
         assertEquals(meeting, meeting1);
     }
 
     @Test
     public void getUserWithSuccess() {
         User user = service.getUsers().get(0);
-        User user1 = service.getUser(service.getUsers().get(0).getEmail());
+        User user1 = service.getUser(user.getEmail());
         assertEquals(user, user1);
     }
 
@@ -109,7 +104,6 @@ public class LamzoneMeetingUnitTest {
                     assertNotEquals(meeting.getLocation(), room);
                 }
             }
-
         }
     }
 

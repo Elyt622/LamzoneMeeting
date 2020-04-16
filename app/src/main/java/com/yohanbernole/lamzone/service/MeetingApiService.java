@@ -36,5 +36,5 @@ public interface MeetingApiService {
 
         List<Meeting> filterMeetingByRoomId(long id);
 
-        ArrayList<Meeting> filterMeetingByDate(int year, int month, int day);
+        List<Meeting> filterMeetingByDate(int year, int month, int day);
 }

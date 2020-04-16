@@ -1,4 +1,4 @@
-package com.yohanbernole.lamzone.ui;
+package com.yohanbernole.lamzone.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.service.MeetingApiService;
+import com.yohanbernole.lamzone.ui.adapter.MeetingRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -17,7 +18,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class FilterByRoomDialog extends DialogFragment {
-    ArrayList<Integer> selectedItems = new ArrayList<>();
+    public ArrayList<Integer> selectedItems = new ArrayList<>();
     private MeetingApiService apiService = DI.getMeetingApiService();
 
     @NonNull

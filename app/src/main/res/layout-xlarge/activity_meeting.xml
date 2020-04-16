@@ -41,7 +41,7 @@
 
             <fragment
                 android:id="@+id/fragment_details"
-                android:name="com.yohanbernole.lamzone.ui.DetailMeetingFragment"
+                android:name="com.yohanbernole.lamzone.ui.fragment.DetailMeetingFragment"
                 android:layout_width="match_parent"
                 android:layout_height="800dp" />
         </FrameLayout>

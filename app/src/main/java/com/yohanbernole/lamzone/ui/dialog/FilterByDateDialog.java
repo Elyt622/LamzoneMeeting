@@ -1,4 +1,4 @@
-package com.yohanbernole.lamzone.ui;
+package com.yohanbernole.lamzone.ui.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

@@ -1,7 +1,7 @@
 package com.yohanbernole.lamzone.model;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Meeting {
@@ -12,9 +12,9 @@ public class Meeting {
     private int duration;
     private MeetingRoom room;
     private String subject;
-    private ArrayList<User> users;
+    private List<User> users;
 
-    public Meeting(long id, String name, Date date, MeetingRoom room, String subject, ArrayList<User> users, int duration) {
+    public Meeting(long id, String name, Date date, MeetingRoom room, String subject, List<User> users, int duration) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -56,9 +56,9 @@ public class Meeting {
         this.subject = subject;
     }
 
-    public ArrayList<User> getUsers() { return users; }
+    public List<User> getUsers() { return users; }
 
-    public void setUsers(ArrayList<User> users) { this.users = users; }
+    public void setUsers(List<User> users) { this.users = users; }
 
     public void setHours(Date date) { this.date = date; }
 

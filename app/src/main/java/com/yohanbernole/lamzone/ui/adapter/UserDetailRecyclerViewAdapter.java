@@ -1,4 +1,4 @@
-package com.yohanbernole.lamzone.ui;
+package com.yohanbernole.lamzone.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,7 @@ public class UserDetailRecyclerViewAdapter  extends RecyclerView.Adapter<UserRec
 
     private final List<User> mUsers;
 
-    UserDetailRecyclerViewAdapter(List<User> items) {
+    public UserDetailRecyclerViewAdapter(List<User> items) {
         mUsers = items;
     }
 

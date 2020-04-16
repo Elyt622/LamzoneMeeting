@@ -26,6 +26,7 @@ import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.model.MeetingRoom;
 import com.yohanbernole.lamzone.model.User;
 import com.yohanbernole.lamzone.service.MeetingApiService;
+import com.yohanbernole.lamzone.ui.adapter.UserRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;

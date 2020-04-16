@@ -81,6 +81,7 @@ public class LamzoneMeetingInstrumentedTest {
         onView(ViewMatchers.withText("Par Salle")).perform(click());
         onView(withText("Salle A2")).check(matches(isNotChecked())).perform(click());
         onView(withText("OK")).perform(click());
+        onView(withId(R.id.container)).check(withItemCount(2));
     }
 
     @Test
@@ -89,16 +90,19 @@ public class LamzoneMeetingInstrumentedTest {
         onView(ViewMatchers.withText("Par Date")).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(1970,1, 19));
         onView(withText("OK")).perform(click());
+        onView(withId(R.id.container)).check(withItemCount(1));
     }
 
     @Test
     public void reinitializeFilterWithSuccess() {
+        int size = mApiService.getMeetings().size();
         onView(withId(R.id.filter_meeting)).perform(click());
         onView(ViewMatchers.withText("Par Date")).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(1970,1, 19));
         onView(withText("OK")).perform(click());
         onView(withId(R.id.filter_meeting)).perform(click());
         onView(withText("Réinitialiser")).perform(click());
+        onView(withId(R.id.container)).check(withItemCount(size));
     }
 
     @Test
@@ -109,6 +113,7 @@ public class LamzoneMeetingInstrumentedTest {
 
     @Test
     public void addNewMeetingWithSuccess() {
+        int size = mApiService.getMeetings().size();
         onView(withId(R.id.meeting_activity_add_meeting_button)).perform(click());
         onView(withId(R.id.edit_text_meeting_name)).perform(click()).perform(typeText("Test"));
         onView(withId(R.id.edit_text_subject_meeting)).perform(click()).perform(typeText("TestSubject"));
@@ -118,14 +123,12 @@ public class LamzoneMeetingInstrumentedTest {
         onView(withId(R.id.edit_text_email_user_meeting)).perform(scrollTo(), click()).perform(typeText("yohan.bernole@gmail.com"));
         onView(withId(R.id.button_add_user)).perform(scrollTo(), click());
         onView(withId(R.id.button_add_meeting)).perform(scrollTo(), click());
-        onView(withId(R.id.filter_meeting)).perform(click());
-        onView(ViewMatchers.withText("Par Date")).perform(click());
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020,5, 19));
-        onView(withText("OK")).perform(click());
+        onView(withId(R.id.container)).check(withItemCount(size+1));
     }
 
     @Test
     public void addNewUserWithSuccess() {
+        int size = mApiService.getUsers().size();
         onView(withId(R.id.meeting_activity_add_meeting_button)).perform(click());
         onView(withId(R.id.add_new_user)).perform(click());
         onView(withId(R.id.edit_text_username)).perform(click()).perform(typeText("Test"));

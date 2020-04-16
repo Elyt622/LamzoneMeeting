@@ -1,4 +1,4 @@
-package com.yohanbernole.lamzone.ui;
+package com.yohanbernole.lamzone.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,7 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
 
     private final List<User> mUsers;
 
-    UserRecyclerViewAdapter(List<User> items) {
+    public UserRecyclerViewAdapter(List<User> items) {
         mUsers = items;
     }
 
@@ -51,10 +51,10 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
         return mUsers.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
        TextView textViewUser;
        ImageButton imageButtonRemove;
-        ViewHolder(View view) {
+        public ViewHolder(View view) {
             super(view);
             textViewUser = view.findViewById(R.id.text_view_email_fragment_user);
             imageButtonRemove = view.findViewById(R.id.image_button_remove_fragment_user);

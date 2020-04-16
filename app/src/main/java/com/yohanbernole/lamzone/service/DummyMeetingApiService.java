@@ -86,10 +86,10 @@ public class DummyMeetingApiService implements MeetingApiService {
         return meetingWithFilterByRooms;
     }
 
-    public ArrayList<Meeting> filterMeetingByDate(int year, int month, int day){
+    public List<Meeting> filterMeetingByDate(int year, int month, int day){
+        ArrayList<Meeting> meetingWithFilterByDate = new ArrayList<>();
         int year2, month2, day2;
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
-        ArrayList<Meeting> meetingWithFilterByDate = new ArrayList<>();
         for(int i = 0; i < meetings.size(); i++){
             cal.setTime(meetings.get(i).getDate());
             year2 = cal.get(Calendar.YEAR); month2 = cal.get(Calendar.MONTH); day2 = cal.get(Calendar.DAY_OF_MONTH);
