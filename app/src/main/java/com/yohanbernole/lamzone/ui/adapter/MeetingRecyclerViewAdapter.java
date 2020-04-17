@@ -1,9 +1,7 @@
 package com.yohanbernole.lamzone.ui.adapter;
 
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +14,8 @@ import com.yohanbernole.lamzone.R;
 import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.service.MeetingApiService;
-import com.yohanbernole.lamzone.ui.DetailsMeetingActivity;
-import com.yohanbernole.lamzone.ui.fragment.DetailMeetingFragment;
+import com.yohanbernole.lamzone.ui.event.LaunchActivityEvent;
+import com.yohanbernole.lamzone.ui.event.RefreshFragmentEvent;
 
 import java.util.Date;
 import java.util.List;
@@ -25,15 +23,14 @@ import java.text.DateFormat;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+import de.greenrobot.event.EventBus;
 
 
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder>{
     private final List<Meeting> mMeetings;
     private MeetingApiService mApiService;
+
     public MeetingRecyclerViewAdapter(List<Meeting> items) {
         mMeetings = items;
     }
@@ -75,11 +72,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             holder.listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), DetailsMeetingActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putLong("ID", meeting.getId());
-                    intent.putExtras(bundle);
-                    ActivityCompat.startActivity(v.getContext(), intent, null);
+                    EventBus.getDefault().post(new LaunchActivityEvent(meeting.getId()));
                 }
             });
         }
@@ -88,20 +81,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             holder.listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putLong("ID", meeting.getId());
-                    FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
-                    DetailMeetingFragment detailMeetingFragment = new DetailMeetingFragment();
-                    detailMeetingFragment.setArguments(bundle);
-                    if(fragmentManager.getBackStackEntryCount() <= 1) {
-                        fragmentManager.beginTransaction().replace(R.id.container_fragment, detailMeetingFragment).addToBackStack(null)
-                                .commit();
-                    }
-                        else{
-                            fragmentManager.popBackStack(0, 0);
-                            fragmentManager.beginTransaction().replace(R.id.container_fragment, detailMeetingFragment)
-                                    .commit();
-                        }
+                    EventBus.getDefault().post(new RefreshFragmentEvent(meeting.getId()));
                 }
             });
         }

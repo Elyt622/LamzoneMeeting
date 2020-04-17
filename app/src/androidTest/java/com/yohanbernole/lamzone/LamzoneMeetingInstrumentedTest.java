@@ -7,7 +7,7 @@ import android.widget.TimePicker;
 import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.service.MeetingApiService;
 import com.yohanbernole.lamzone.utils.DeleteViewAction;
-import com.yohanbernole.lamzone.ui.CustomDatePicker;
+import com.yohanbernole.lamzone.ui.custom_widget.CustomDatePicker;
 import com.yohanbernole.lamzone.ui.MeetingActivity;
 
 import androidx.test.espresso.contrib.PickerActions;
@@ -128,7 +128,6 @@ public class LamzoneMeetingInstrumentedTest {
 
     @Test
     public void addNewUserWithSuccess() {
-        int size = mApiService.getUsers().size();
         onView(withId(R.id.meeting_activity_add_meeting_button)).perform(click());
         onView(withId(R.id.add_new_user)).perform(click());
         onView(withId(R.id.edit_text_username)).perform(click()).perform(typeText("Test"));

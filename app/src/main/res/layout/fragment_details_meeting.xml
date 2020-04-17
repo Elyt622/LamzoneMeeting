@@ -73,6 +73,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="180dp" />
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

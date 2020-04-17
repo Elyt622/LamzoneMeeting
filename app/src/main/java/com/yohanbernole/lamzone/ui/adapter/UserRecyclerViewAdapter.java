@@ -51,10 +51,10 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
         return mUsers.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
        TextView textViewUser;
        ImageButton imageButtonRemove;
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             textViewUser = view.findViewById(R.id.text_view_email_fragment_user);
             imageButtonRemove = view.findViewById(R.id.image_button_remove_fragment_user);

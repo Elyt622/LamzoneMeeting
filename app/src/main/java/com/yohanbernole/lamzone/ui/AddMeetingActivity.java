@@ -42,7 +42,13 @@ public class AddMeetingActivity extends AppCompatActivity {
     ArrayList<User> listParticipant = new ArrayList<>();
     long dateInMillis = 0;
     int year1 = -1, month1, dayOfMonth1, hourOfDay1 = -1, minute1;
+
     EditText subjectMeetingEditText, nameMeetingEditText, editTextMeetingDuration;
+    Button addEmailUserButton, addMeetingButton;
+    Spinner meetingRoomSpinner;
+    RecyclerView rv;
+    DatePicker dateMeetingDatePicker;
+    TimePicker timeMeetingTimePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +58,15 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupActionBar();
 
         // *** Bind View *** //
-        Button addEmailUserButton = findViewById(R.id.button_add_user);
+        addEmailUserButton = findViewById(R.id.button_add_user);
         addUsersWithCompletion = findViewById(R.id.edit_text_email_user_meeting);
-        Spinner meetingRoomSpinner = findViewById(R.id.spinner_meeting_room);
-        final DatePicker dateMeetingDatePicker = findViewById(R.id.date_picker_add_date);
-        TimePicker timeMeetingTimePicker = findViewById(R.id.time_picker_add_date);
+        meetingRoomSpinner = findViewById(R.id.spinner_meeting_room);
+        dateMeetingDatePicker = findViewById(R.id.date_picker_add_date);
+        timeMeetingTimePicker = findViewById(R.id.time_picker_add_date);
         subjectMeetingEditText = findViewById(R.id.edit_text_subject_meeting);
-        Button addMeetingButton = findViewById(R.id.button_add_meeting);
+        addMeetingButton = findViewById(R.id.button_add_meeting);
         nameMeetingEditText = findViewById(R.id.edit_text_meeting_name);
-        final RecyclerView rv = findViewById(R.id.recycler_view_user_participant);
+        rv = findViewById(R.id.recycler_view_user_participant);
         editTextMeetingDuration = findViewById(R.id.edit_text_meeting_duration);
 
         // *** Configure Date of Meeting *** //
