@@ -1,7 +1,6 @@
 package com.yohanbernole.lamzone.ui.adapter;
 
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import de.greenrobot.event.EventBus;
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder>{
     private final List<Meeting> mMeetings;
     private MeetingApiService mApiService;
-
     public MeetingRecyclerViewAdapter(List<Meeting> items) {
         mMeetings = items;
     }
@@ -66,25 +64,14 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.meeting_users.setText(nameUsers);
         holder.image.setImageTintList(ColorStateList.valueOf(meeting.getLocation().getColor()));
 
-        // *** Portrait Orientation *** //
-        if(holder.orientation == 0 && holder.tabletLarge == 0)
-        {
             holder.listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     EventBus.getDefault().post(new LaunchActivityEvent(meeting.getId()));
-                }
-            });
-        }
-        // *** Landscape Orientation *** //
-        else if(holder.orientation == 1 || holder.tabletLarge == 1){
-            holder.listItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
                     EventBus.getDefault().post(new RefreshFragmentEvent(meeting.getId()));
                 }
             });
-        }
+
 
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,13 +93,9 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         ImageView image;
         ImageButton mDeleteButton;
         LinearLayout listItem;
-        int orientation, tabletLarge, tablet;
+
         ViewHolder(View view) {
             super(view);
-            tablet = view.getResources().getConfiguration().screenWidthDp >= 480 && view.getResources().getConfiguration().screenWidthDp < 720 ? 1 : 0 ;
-            tabletLarge = view.getResources().getConfiguration().screenWidthDp >= 720 ? 1 : 0 ;
-            orientation = view.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 0 : 1 ;
-
             name = view.findViewById(R.id.item_list_name);
             image = view.findViewById(R.id.item_list_color);
             mDeleteButton = view.findViewById(R.id.item_list_delete_button);

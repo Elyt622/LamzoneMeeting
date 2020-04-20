@@ -67,7 +67,12 @@ public class DetailMeetingFragment extends Fragment {
     }
 
     public void onEvent(RefreshFragmentEvent event){
-        initDetails(event.getId());
+        assert getFragmentManager() != null;
+        if(getFragmentManager().getFragments().size() == 2){
+            if(getFragmentManager().getFragments().get(1).isVisible()){
+                initDetails(event.getId());
+            }
+        }
     }
 
     @Override

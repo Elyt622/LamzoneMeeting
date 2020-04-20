@@ -128,9 +128,18 @@ public class MeetingActivityFragment extends Fragment{
     }
 
     public void onEvent(LaunchActivityEvent event){
-        Intent intent = new Intent(getActivity(), DetailsMeetingActivity.class);
-        intent.putExtra("ID", event.getId());
-        startActivity(intent);
+        assert getFragmentManager() != null;
+        if(getFragmentManager().getFragments().size() == 2){
+            if(!getFragmentManager().getFragments().get(1).isVisible()){
+                Intent intent = new Intent(getActivity(), DetailsMeetingActivity.class);
+                intent.putExtra("ID", event.getId());
+                startActivity(intent);
+            }
+        }else{
+            Intent intent = new Intent(getActivity(), DetailsMeetingActivity.class);
+            intent.putExtra("ID", event.getId());
+            startActivity(intent);
+        }
     }
 
     @Override
