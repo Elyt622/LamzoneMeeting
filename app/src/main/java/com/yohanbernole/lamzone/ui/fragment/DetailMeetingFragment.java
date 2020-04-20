@@ -19,7 +19,7 @@ import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.service.MeetingApiService;
 import com.yohanbernole.lamzone.ui.adapter.UserDetailRecyclerViewAdapter;
-import com.yohanbernole.lamzone.ui.event.RefreshFragmentEvent;
+import com.yohanbernole.lamzone.ui.event.LaunchActivityEvent;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -66,7 +66,7 @@ public class DetailMeetingFragment extends Fragment {
         return view;
     }
 
-    public void onEvent(RefreshFragmentEvent event){
+    public void onEvent(LaunchActivityEvent event){
         assert getFragmentManager() != null;
         if(getFragmentManager().getFragments().size() == 2){
             if(getFragmentManager().getFragments().get(1).isVisible()){

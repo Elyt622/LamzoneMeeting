@@ -69,6 +69,32 @@ public class AddMeetingActivity extends AppCompatActivity {
         rv = findViewById(R.id.recycler_view_user_participant);
         editTextMeetingDuration = findViewById(R.id.edit_text_meeting_duration);
 
+        configDatePicker();
+        configSpinner();
+        configMultiCompletion();
+        configAddUser();
+
+        // *** Configure Button add meeting *** //
+        addMeetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkAllDataIsValid()) {
+                    mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
+                            nameMeetingEditText.getText().toString(),
+                            submitDate,
+                            meetingRoomChoose,
+                            subjectMeetingEditText.getText().toString(),
+                            listParticipant,
+                            Integer.parseInt(editTextMeetingDuration.getText().toString()));
+                    Toast toast = Toast.makeText(v.getContext(), R.string.add_meeting, Toast.LENGTH_LONG);
+                    toast.show();
+                    finish();
+                }
+            }
+        });
+    }
+
+    private void configDatePicker() {
         // *** Configure Date of Meeting *** //
         timeMeetingTimePicker.setIs24HourView(true);
         final Calendar calendar = Calendar.getInstance();
@@ -94,7 +120,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void configSpinner() {
         // *** Configure Spinner with Meeting rooms name *** //
         List<String> list = new ArrayList<>();
         for (MeetingRoom room : mMeetingApiService.getMeetingRooms()) {
@@ -114,13 +142,17 @@ public class AddMeetingActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void configMultiCompletion() {
         // *** Configure MultiCompletion Edit Text *** //
         ArrayAdapter adapterUsers = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mMeetingApiService.getAllEmails());
         addUsersWithCompletion.setAdapter(adapterUsers);
         addUsersWithCompletion.setThreshold(1);
         addUsersWithCompletion.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+    }
 
+    private void configAddUser() {
         // *** Configure Button add user *** //
         addEmailUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,25 +162,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                 rv.setAdapter(adapterRv);
                 rv.setLayoutManager(new LinearLayoutManager(v.getContext()));
                 addUsersWithCompletion.setText("");
-            }
-        });
-
-        // *** Configure Button add meeting *** //
-        addMeetingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkAllDataIsValid()) {
-                    mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
-                            nameMeetingEditText.getText().toString(),
-                            submitDate,
-                            meetingRoomChoose,
-                            subjectMeetingEditText.getText().toString(),
-                            listParticipant,
-                            Integer.parseInt(editTextMeetingDuration.getText().toString()));
-                    Toast toast = Toast.makeText(v.getContext(), R.string.add_meeting, Toast.LENGTH_LONG);
-                    toast.show();
-                    finish();
-                }
             }
         });
     }

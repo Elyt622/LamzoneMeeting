@@ -14,7 +14,6 @@ import com.yohanbernole.lamzone.di.DI;
 import com.yohanbernole.lamzone.model.Meeting;
 import com.yohanbernole.lamzone.service.MeetingApiService;
 import com.yohanbernole.lamzone.ui.event.LaunchActivityEvent;
-import com.yohanbernole.lamzone.ui.event.RefreshFragmentEvent;
 
 import java.util.Date;
 import java.util.List;
@@ -68,7 +67,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                 @Override
                 public void onClick(View v) {
                     EventBus.getDefault().post(new LaunchActivityEvent(meeting.getId()));
-                    EventBus.getDefault().post(new RefreshFragmentEvent(meeting.getId()));
                 }
             });
 
