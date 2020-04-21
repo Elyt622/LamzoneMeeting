@@ -7,7 +7,11 @@ Ce dépôt contient une mini-application pour le Projet 4 du parcours **Dévelop
 
 Lamzone Meeting est une application qui liste les meetings de l'entreprise Lamzone.
 
-## Objectifs: Développer une application de A à Z qui supporte Android 5.0 (API 21) et ses versions supérieurs.
+## Objectifs
+
+Développer une application de A à Z qui supporte Android 5.0 (API 21) et ses versions supérieurs.<br/>
+Création de l’application comprenant toutes les fonctionnalités demandées.<br/>
+Réalisation d’un test unitaire et d’un test instrumentalisé par fonctionnalité.
 
 ## Télécharger l'application Lamzone Meeting
 - Le lien du projet est le suivant : https://github.com/Elyt622/LamzoneMeeting
@@ -23,11 +27,7 @@ Lamzone Meeting est une application qui liste les meetings de l'entreprise Lamzo
 
 ### Ajouter un meeting
 
-![Photo of app](/images/2.png)
-
-![Photo of app](/images/3.png)
-
-![Photo of app](/images/4.png)
+![Photo of app](/images/2.png) | ![Photo of app](/images/3.png) | ![Photo of app](/images/4.png)
 
 ### Ajouter un utilisateur
 
@@ -39,9 +39,7 @@ Lamzone Meeting est une application qui liste les meetings de l'entreprise Lamzo
 
 ### Par salle
 
-![Photo of app](/images/7.png)
-
-![Photo of app](/images/8.png)
+ ![Photo of app](/images/7.png) | ![Photo of app](/images/8.png)
 
 ### Par date
 
@@ -59,3 +57,4 @@ Lamzone Meeting est une application qui liste les meetings de l'entreprise Lamzo
 
 ![Photo of app](/images/13.png)
 
+Les fragments peuvent être scrollés.
