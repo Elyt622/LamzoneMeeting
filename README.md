@@ -26,6 +26,7 @@ Réalisation d’un test unitaire et d’un test instrumentalisé par fonctionna
 ![Photo of app](/images/1.png)
 
 ### Ajouter un meeting
+ScrollView avec DatePicker, TimePicker, MultiAutoCompleteTextView et une RecyclerView pour afficher les participants.
 
 ![Photo of app](/images/2.png) | ![Photo of app](/images/3.png) | ![Photo of app](/images/4.png)
 
@@ -49,7 +50,8 @@ Réalisation d’un test unitaire et d’un test instrumentalisé par fonctionna
 
 ![Photo of app](/images/10.png)
 
-### Application responsive sur toutes les tailles de téléphones et tablettes Android en modes portrait et paysage.
+### Application responsive - Utilisation des fragments
+Les téléphones et tablettes Android en modes portrait et paysage.
 
 ![Photo of app](/images/11.png)
 
