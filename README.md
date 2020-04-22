@@ -28,7 +28,7 @@ Réalisation d’un test unitaire et d’un test instrumentalisé par fonctionna
 ### Ajouter un meeting
 ScrollView avec DatePicker, TimePicker, MultiAutoCompleteTextView et une RecyclerView pour afficher les participants.
 
-![Photo of app](/images/2.png) | ![Photo of app](/images/3.png) | ![Photo of app](/images/4.png)
+![Photo of app](/images/2.png) ![Photo of app](/images/3.png) ![Photo of app](/images/4.png)
 
 ### Ajouter un utilisateur
 
@@ -40,7 +40,7 @@ ScrollView avec DatePicker, TimePicker, MultiAutoCompleteTextView et une Recycle
 
 ### Par salle
 
- ![Photo of app](/images/7.png) | ![Photo of app](/images/8.png)
+ ![Photo of app](/images/7.png) ![Photo of app](/images/8.png)
 
 ### Par date
 
